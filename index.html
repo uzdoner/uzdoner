@@ -3,36 +3,72 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Uz Doner | Order Online</title>
-  <meta name="description" content="Uz Doner — Shawarma, Doner & Street Eats. Order pickup via Clover or delivery via DoorDash / Uber Eats." />
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Uz Doner | Order Online • Halal Shawarma in Brooklyn</title>
+  <meta name="description" content="Uz Doner — Halal shawarma, doner & street eats in Brooklyn. Order pickup via Clover or delivery with DoorDash & Uber Eats." />
   <link rel="icon" href="./uzdoner-Logo%20(1).png" />
+  <meta name="theme-color" content="#111827" />
+  <meta property="og:title" content="Uz Doner | Order Online" />
+  <meta property="og:description" content="Fresh 🔥 Doner & Shawarma — fast, tasty, halal. Pickup (Clover) or delivery (DoorDash / Uber Eats)." />
+  <meta property="og:image" content="./uzdoner-Logo%20(1).png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="en_US" />
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root { color-scheme: light; }
+    html{scroll-behavior:smooth}
     body { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji"; }
+    .glass{background:rgba(255,255,255,.75);backdrop-filter:saturate(140%) blur(8px)}
+    .lang-btn[aria-pressed="true"]{outline:2px solid #000; outline-offset:2px}
   </style>
+  <!-- LocalBusiness / Restaurant schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Uz Doner",
+    "image": "uzdoner-Logo%20(1).png",
+    "servesCuisine": ["Halal","Middle Eastern","Fast Casual"],
+    "address": {"@type":"PostalAddress","streetAddress":"1940 Ocean Ave, Apt 6J","addressLocality":"Brooklyn","addressRegion":"NY","postalCode":"11230","addressCountry":"US"},
+    "telephone": "+1-929-241-5927",
+    "url": "https://your-domain-here.com",
+    "priceRange": "$$",
+    "acceptsReservations": false,
+    "openingHours": ["Mo-Su 10:00-23:00"]
+  }
+  </script>
 </head>
 <body class="bg-neutral-50 text-neutral-900">
+  <!-- ====== ANNOUNCEMENT BAR ====== -->
+  <div class="sticky top-0 z-[60] border-b border-neutral-200 glass">
+    <div class="max-w-6xl mx-auto px-4 py-2 text-center text-sm" data-i18n="announce">💥 <b>Grand Opening:</b> Pickup is cheapest on <span class="font-semibold">Clover</span>. Delivery via <span class="font-semibold">DoorDash</span> or <span class="font-semibold">Uber Eats</span>.</div>
+  </div>
+
   <!-- ====== HEADER ====== -->
-  <header class="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-neutral-200">
+  <header class="sticky top-10 z-50 bg-white/80 backdrop-blur border-b border-neutral-200">
     <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
       <a href="#" class="flex items-center gap-3">
         <img src="./uzdoner-Logo%20(1).png" alt="Uz Doner" class="h-10 w-10 rounded-xl object-contain ring-1 ring-neutral-200 bg-white"/>
         <div class="leading-tight">
-          <div class="font-extrabold text-xl tracking-tight">Uz Doner</div>
-          <div class="text-xs text-neutral-500">Brooklyn, NY • Halal</div>
+          <div class="font-extrabold text-xl tracking-tight" data-i18n="brand_name">Uz Doner</div>
+          <div class="text-xs text-neutral-500" data-i18n="brand_tag">Brooklyn, NY • Halal</div>
         </div>
       </a>
 
       <nav class="hidden md:flex items-center gap-6 text-sm">
-        <a href="#menu" class="hover:opacity-80">Menu</a>
-        <a href="#order" class="hover:opacity-80">Order</a>
-        <a href="#hours" class="hover:opacity-80">Hours & Location</a>
+        <a href="#menu" class="hover:opacity-80" data-i18n="nav_menu">Menu</a>
+        <a href="#order" class="hover:opacity-80" data-i18n="nav_order">Order</a>
+        <a href="#hours" class="hover:opacity-80" data-i18n="nav_hours">Hours & Location</a>
       </nav>
 
       <div class="flex items-center gap-3">
-        <a href="tel:+19292415927" class="hidden sm:inline-flex items-center rounded-xl border px-3 py-2 text-sm">📞 (929) 2415927 </a>
-        <a href="#order" class="inline-flex items-center gap-2 rounded-2xl px-4 py-2 text-sm font-semibold bg-black text-white shadow-sm hover:opacity-90">Order</a>
+        <!-- Language switcher -->
+        <div class="hidden sm:flex items-center gap-1" role="group" aria-label="Language">
+          <button class="lang-btn rounded-lg px-2 py-1 text-base ring-1 ring-black/10" data-lang="uz" title="O‘zbek"><span aria-hidden>🇺🇿</span><span class="sr-only">Uzbek</span></button>
+          <button class="lang-btn rounded-lg px-2 py-1 text-base ring-1 ring-black/10" data-lang="ru" title="Русский"><span aria-hidden>🇷🇺</span><span class="sr-only">Russian</span></button>
+          <button class="lang-btn rounded-lg px-2 py-1 text-base ring-1 ring-black/10" data-lang="en" title="English"><span aria-hidden>🇬🇧</span><span class="sr-only">English</span></button>
+        </div>
+        <a href="tel:+19292415927" class="hidden sm:inline-flex items-center rounded-xl border px-3 py-2 text-sm" data-i18n="call_short">📞 (929) 241‑5927</a>
+        <a href="#order" class="inline-flex items-center gap-2 rounded-2xl px-4 py-2 text-sm font-semibold bg-black text-white shadow-sm hover:opacity-90" data-i18n="btn_order">Order</a>
       </div>
     </div>
   </header>
@@ -44,22 +80,21 @@
     <div class="max-w-6xl mx-auto px-4 py-14 grid md:grid-cols-2 gap-10 items-center">
       <!-- Left copy -->
       <div>
-        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">
+        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight" data-i18n="hero_title">
           Fresh 🔥 Doner & Shawarma — tez, mazali, halal.
         </h1>
-        <p class="mt-4 text-neutral-600">
+        <p class="mt-4 text-neutral-700" data-i18n="hero_desc">
           Pickup (Clover) arzonroq; Delivery DoorDash / Uber Eats orqali. Pastdagi tugmalardan birini bosing.
         </p>
 
         <!-- ORDER BUTTONS -->
         <div id="order" class="mt-6 flex flex-wrap gap-3">
-          <!-- TODO: quyidagi # ni real linklarga almashtiring -->
-          <a href="#" class="rounded-2xl px-5 py-3 text-sm font-semibold bg-emerald-600 text-white shadow hover:opacity-90">Pickup (Clover)</a>
-          <a href="#" class="rounded-2xl px-5 py-3 text-sm font-semibold bg-red-600 text-white shadow hover:opacity-90">Delivery (DoorDash)</a>
-          <a href="#" class="rounded-2xl px-5 py-3 text-sm font-semibold bg-neutral-900 text-white shadow hover:opacity-90">Delivery (Uber Eats)</a>
+          <a href="#" class="rounded-2xl px-5 py-3 text-sm font-semibold bg-emerald-600 text-white shadow hover:opacity-90" aria-label="Order pickup on Clover" data-i18n="pickup_clover">Pickup (Clover)</a>
+          <a href="#" class="rounded-2xl px-5 py-3 text-sm font-semibold bg-red-600 text-white shadow hover:opacity-90" aria-label="Order delivery on DoorDash" data-i18n="delivery_dd">Delivery (DoorDash)</a>
+          <a href="#" class="rounded-2xl px-5 py-3 text-sm font-semibold bg-neutral-900 text-white shadow hover:opacity-90" aria-label="Order delivery on Uber Eats" data-i18n="delivery_ue">Delivery (Uber Eats)</a>
         </div>
 
-        <p class="mt-3 text-xs text-neutral-500">
+        <p class="mt-3 text-xs text-neutral-500" data-i18n="pickup_note">
           Pickup odatda arzonroq. Delivery hamkorlar orqali hududingizda mavjud.
         </p>
       </div>
@@ -67,19 +102,305 @@
       <!-- Right visual -->
       <div class="relative">
         <div class="aspect-[4/3] w-full rounded-3xl ring-1 ring-black/5 bg-white/60 grid place-items-center shadow-lg">
-          <!-- Hozircha logoni hero ichida ham ko'rsatamiz; keyin taom rasmi bilan almashtiramiz -->
-          <img src="./uzdoner-Logo%20(1).png" alt="Uz Doner Logo" class="h-40 w-40 object-contain opacity-90">
+          <img src="./uzdoner-Logo%20(1).png" alt="Uz Doner logo" class="h-40 w-40 object-contain opacity-90">
+        </div>
+        <!-- Floating quick order card -->
+        <div class="absolute -bottom-6 right-6 w-[260px] rounded-2xl shadow-lg ring-1 ring-black/5 bg-white p-4">
+          <div class="text-sm font-semibold" data-i18n="quick_picks">Quick Picks</div>
+          <ul class="mt-2 space-y-1 text-sm text-neutral-700">
+            <li data-i18n="qp1">🥙 Classic Chicken Shawarma</li>
+            <li data-i18n="qp2">🥙 Beef Doner Wrap</li>
+            <li data-i18n="qp3">🍟 Fries + White Sauce</li>
+          </ul>
+          <a href="#menu" class="mt-3 inline-flex text-sm font-semibold underline" data-i18n="see_full_menu">See full menu →</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- (Keyingi bosqichlarda: Categories, Menu, Hours & Location, Footer) -->
+  <!-- ====== MENU ====== -->
+  <section id="menu" class="py-14 border-t border-neutral-200">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex items-end justify-between gap-4">
+        <h2 class="text-2xl md:text-3xl font-extrabold" data-i18n="menu_title">Menu</h2>
+        <a href="#order" class="text-sm font-semibold underline" data-i18n="order_now">Order now</a>
+      </div>
 
+      <!-- Categories (static pills; optional filter logic) -->
+      <div class="mt-6 flex flex-wrap gap-2 text-sm">
+        <button class="px-3 py-1 rounded-full bg-black text-white" data-i18n="cat_all">All</button>
+        <button class="px-3 py-1 rounded-full bg-neutral-200" data-i18n="cat_shawarma">Shawarma</button>
+        <button class="px-3 py-1 rounded-full bg-neutral-200" data-i18n="cat_doner">Doner</button>
+        <button class="px-3 py-1 rounded-full bg-neutral-200" data-i18n="cat_bowls">Bowls</button>
+        <button class="px-3 py-1 rounded-full bg-neutral-200" data-i18n="cat_sides">Sides</button>
+        <button class="px-3 py-1 rounded-full bg-neutral-200" data-i18n="cat_drinks">Drinks</button>
+      </div>
+
+      <!-- Items grid (sample data; replace with real) -->
+      <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Item -->
+        <article class="rounded-2xl ring-1 ring-black/5 bg-white overflow-hidden">
+          <div class="aspect-[4/3] bg-neutral-100 grid place-items-center">🍗</div>
+          <div class="p-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-bold" data-i18n="item1_name">Chicken Shawarma Wrap</h3>
+              <span class="text-sm font-semibold" data-i18n="item1_price">$9.99</span>
+            </div>
+            <p class="mt-1 text-sm text-neutral-600" data-i18n="item1_desc">Marinated chicken, white sauce, pickles, tomatoes, fries inside.</p>
+          </div>
+        </article>
+        <!-- Item -->
+        <article class="rounded-2xl ring-1 ring-black/5 bg-white overflow-hidden">
+          <div class="aspect-[4/3] bg-neutral-100 grid place-items-center">🥩</div>
+          <div class="p-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-bold" data-i18n="item2_name">Beef Doner Wrap</h3>
+              <span class="text-sm font-semibold" data-i18n="item2_price">$11.49</span>
+            </div>
+            <p class="mt-1 text-sm text-neutral-600" data-i18n="item2_desc">Thin-sliced beef, onions, parsley, sumac, tahini.</p>
+          </div>
+        </article>
+        <!-- Item -->
+        <article class="rounded-2xl ring-1 ring-black/5 bg-white overflow-hidden">
+          <div class="aspect-[4/3] bg-neutral-100 grid place-items-center">🥗</div>
+          <div class="p-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-bold" data-i18n="item3_name">Mixed Shawarma Bowl</h3>
+              <span class="text-sm font-semibold" data-i18n="item3_price">$12.99</span>
+            </div>
+            <p class="mt-1 text-sm text-neutral-600" data-i18n="item3_desc">Rice, salad, chicken + beef, white & hot sauces.</p>
+          </div>
+        </article>
+        <!-- Item -->
+        <article class="rounded-2xl ring-1 ring-black/5 bg-white overflow-hidden">
+          <div class="aspect-[4/3] bg-neutral-100 grid place-items-center">🍟</div>
+          <div class="p-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-bold" data-i18n="item4_name">Crispy Fries</h3>
+              <span class="text-sm font-semibold" data-i18n="item4_price">$3.99</span>
+            </div>
+            <p class="mt-1 text-sm text-neutral-600" data-i18n="item4_desc">Add extra white sauce +$0.75</p>
+          </div>
+        </article>
+        <!-- Item -->
+        <article class="rounded-2xl ring-1 ring-black/5 bg-white overflow-hidden">
+          <div class="aspect-[4/3] bg-neutral-100 grid place-items-center">🥤</div>
+          <div class="p-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-bold" data-i18n="item5_name">Ayran (Yogurt Drink)</h3>
+              <span class="text-sm font-semibold" data-i18n="item5_price">$2.99</span>
+            </div>
+            <p class="mt-1 text-sm text-neutral-600" data-i18n="item5_desc">Cold & refreshing.</p>
+          </div>
+        </article>
+        <!-- Item -->
+        <article class="rounded-2xl ring-1 ring-black/5 bg-white overflow-hidden">
+          <div class="aspect-[4/3] bg-neutral-100 grid place-items-center">🥙</div>
+          <div class="p-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-bold" data-i18n="item6_name">Falafel Wrap (V)</h3>
+              <span class="text-sm font-semibold" data-i18n="item6_price">$8.99</span>
+            </div>
+            <p class="mt-1 text-sm text-neutral-600" data-i18n="item6_desc">Crispy falafel, hummus, salad, tahini.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== HOURS & LOCATION ====== -->
+  <section id="hours" class="py-14 border-t border-neutral-200">
+    <div class="max-w-6xl mx-auto px-4 grid lg:grid-cols-2 gap-8 items-start">
+      <div>
+        <h2 class="text-2xl md:text-3xl font-extrabold" data-i18n="hours_title">Hours & Location</h2>
+        <p class="mt-2 text-neutral-600" data-i18n="address">1940 Ocean Ave, Brooklyn, NY 11230</p>
+
+        <dl class="mt-6 grid grid-cols-2 gap-3 text-sm">
+          <div class="bg-white rounded-xl ring-1 ring-black/5 p-3">
+            <dt class="font-semibold" data-i18n="mon_thu">Mon–Thu</dt>
+            <dd class="text-neutral-600" data-i18n="mon_thu_hours">10:00 AM – 11:00 PM</dd>
+          </div>
+          <div class="bg-white rounded-xl ring-1 ring-black/5 p-3">
+            <dt class="font-semibold" data-i18n="fri_sun">Fri–Sun</dt>
+            <dd class="text-neutral-600" data-i18n="fri_sun_hours">10:00 AM – 12:00 AM</dd>
+          </div>
+          <div class="bg-white rounded-xl ring-1 ring-black/5 p-3">
+            <dt class="font-semibold" data-i18n="phone_label">Phone</dt>
+            <dd class="text-neutral-600"><a class="underline" href="tel:+19292415927">(929) 241‑5927</a></dd>
+          </div>
+          <div class="bg-white rounded-xl ring-1 ring-black/5 p-3">
+            <dt class="font-semibold" data-i18n="email_label">Email</dt>
+            <dd class="text-neutral-600"><a class="underline" href="mailto:kholikov.9996@gmail.com">kholikov.9996@gmail.com</a></dd>
+          </div>
+        </dl>
+
+        <div class="mt-6 flex gap-3 text-sm">
+          <a href="#order" class="inline-flex items-center gap-2 rounded-xl px-4 py-2 font-semibold bg-black text-white" data-i18n="btn_order_now">Order Now</a>
+          <a href="https://maps.google.com/?q=Uz%20Doner%201940%20Ocean%20Ave%20Brooklyn%20NY%2011230" class="inline-flex items-center gap-2 rounded-xl px-4 py-2 font-semibold ring-1 ring-black/10" data-i18n="open_in_maps">Open in Maps</a>
+        </div>
+      </div>
+
+      <div class="rounded-2xl overflow-hidden ring-1 ring-black/5 bg-white">
+        <iframe title="Map to Uz Doner" class="w-full h-[360px]" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=1940+Ocean+Ave,+Brooklyn,+NY+11230&output=embed"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== FAQ / NOTES ====== -->
+  <section class="py-14 border-t border-neutral-200">
+    <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-8">
+      <div>
+        <h2 class="text-2xl md:text-3xl font-extrabold" data-i18n="faq_title">FAQ</h2>
+        <ul class="mt-6 space-y-4 text-sm text-neutral-700">
+          <li data-i18n="faq_halal"><b>Is Uz Doner halal?</b> Yes — all meats are halal.</li>
+          <li data-i18n="faq_prices"><b>Pickup vs delivery prices?</b> Pickup on Clover is usually cheaper than delivery apps.</li>
+          <li data-i18n="faq_sauce"><b>White sauce?</b> Our signature garlic-yogurt white sauce comes standard; ask for extra!</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-xl font-bold" data-i18n="follow_us">Follow Us</h3>
+        <div class="mt-4 flex gap-3 text-sm">
+          <a href="#" class="inline-flex items-center gap-2 rounded-xl px-4 py-2 ring-1 ring-black/10">Instagram</a>
+          <a href="#" class="inline-flex items-center gap-2 rounded-xl px-4 py-2 ring-1 ring-black/10">TikTok</a>
+          <a href="#" class="inline-flex items-center gap-2 rounded-xl px-4 py-2 ring-1 ring-black/10">Facebook</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== FOOTER ====== -->
+  <footer class="border-t border-neutral-200">
+    <div class="max-w-6xl mx-auto px-4 py-8 grid md:grid-cols-2 gap-6 text-sm">
+      <div class="flex items-center gap-3">
+        <img src="./uzdoner-Logo%20(1).png" alt="Uz Doner" class="h-9 w-9 rounded-xl object-contain ring-1 ring-neutral-200 bg-white"/>
+        <div>
+          <div class="font-semibold" data-i18n="footer_brand">Uz Doner</div>
+          <div class="text-neutral-600" data-i18n="footer_tag">Fresh 🔥 Doner & Shawarma — Brooklyn, NY</div>
+        </div>
+      </div>
+      <div class="md:text-right text-neutral-600">
+        © <span id="year"></span> <span data-i18n="footer_rights">Uz Doner. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ====== I18N + SMALL JS ====== -->
   <script>
-    // Kelajakda zarur bo‘lsa bu yerga kichik JS qo‘shamiz.
+    const translations = {
+      en: {
+        announce: "💥 <b>Grand Opening:</b> Pickup is cheapest on <span class=\"font-semibold\">Clover</span>. Delivery via <span class=\"font-semibold\">DoorDash</span> or <span class=\"font-semibold\">Uber Eats</span>.",
+        brand_name: "Uz Doner",
+        brand_tag: "Brooklyn, NY • Halal",
+        nav_menu: "Menu", nav_order: "Order", nav_hours: "Hours & Location",
+        call_short: "📞 (929) 241‑5927",
+        btn_order: "Order",
+        hero_title: "Fresh 🔥 Doner & Shawarma — fast, tasty, halal.",
+        hero_desc: "Pickup (Clover) is cheaper; delivery via DoorDash / Uber Eats. Tap a button below.",
+        pickup_clover: "Pickup (Clover)", delivery_dd: "Delivery (DoorDash)", delivery_ue: "Delivery (Uber Eats)",
+        pickup_note: "Pickup is usually cheaper. Delivery available in your area via partners.",
+        quick_picks: "Quick Picks", qp1: "🥙 Classic Chicken Shawarma", qp2: "🥙 Beef Doner Wrap", qp3: "🍟 Fries + White Sauce", see_full_menu: "See full menu →",
+        menu_title: "Menu", order_now: "Order now",
+        cat_all: "All", cat_shawarma: "Shawarma", cat_doner: "Doner", cat_bowls: "Bowls", cat_sides: "Sides", cat_drinks: "Drinks",
+        item1_name: "Chicken Shawarma Wrap", item1_price: "$9.99", item1_desc: "Marinated chicken, white sauce, pickles, tomatoes, fries inside.",
+        item2_name: "Beef Doner Wrap", item2_price: "$11.49", item2_desc: "Thin-sliced beef, onions, parsley, sumac, tahini.",
+        item3_name: "Mixed Shawarma Bowl", item3_price: "$12.99", item3_desc: "Rice, salad, chicken + beef, white & hot sauces.",
+        item4_name: "Crispy Fries", item4_price: "$3.99", item4_desc: "Add extra white sauce +$0.75",
+        item5_name: "Ayran (Yogurt Drink)", item5_price: "$2.99", item5_desc: "Cold & refreshing.",
+        item6_name: "Falafel Wrap (V)", item6_price: "$8.99", item6_desc: "Crispy falafel, hummus, salad, tahini.",
+        hours_title: "Hours & Location", address: "472 Kings Highway, Brooklyn, NY 11223", mon_thu: "Mon–Thu", mon_thu_hours: "10:00 AM – 11:00 PM", fri_sun: "Fri–Sun", fri_sun_hours: "10:00 AM – 12:00 AM", phone_label: "Phone", email_label: "Email",
+        btn_order_now: "Order Now", open_in_maps: "Open in Maps",
+        faq_title: "FAQ", faq_halal: "<b>Is Uz Doner halal?</b> Yes — all meats are halal.", faq_prices: "<b>Pickup vs delivery prices?</b> Pickup on Clover is usually cheaper than delivery apps.", faq_sauce: "<b>White sauce?</b> Our signature garlic-yogurt white sauce comes standard; ask for extra!",
+        follow_us: "Follow Us",
+        footer_brand: "Uz Doner", footer_tag: "Fresh 🔥 Doner & Shawarma — Brooklyn, NY", footer_rights: "Uz Doner. All rights reserved."
+      },
+      uz: {
+        announce: "💥 <b>Grand Opening:</b> Eng arzon <span class=\"font-semibold\">Clover</span> pickup. Yetkazib berish <span class=\"font-semibold\">DoorDash</span> yoki <span class=\"font-semibold\">Uber Eats</span> orqali.",
+        brand_name: "Uz Doner",
+        brand_tag: "Brooklyn, NY • Halol",
+        nav_menu: "Menyu", nav_order: "Buyurtma", nav_hours: "Ish vaqti & Manzil",
+        call_short: "📞 (929) 241‑5927",
+        btn_order: "Buyurtma",
+        hero_title: "Fresh 🔥 Doner & Shawarma — tez, mazali, halol.",
+        hero_desc: "Pickup (Clover) arzonroq; yetkazib berish DoorDash / Uber Eats orqali. Pastdagi tugmani bosing.",
+        pickup_clover: "Pickup (Clover)", delivery_dd: "Yetkazish (DoorDash)", delivery_ue: "Yetkazish (Uber Eats)",
+        pickup_note: "Pickup odatda arzonroq. Yetkazib berish hamkorlar orqali hududingizda mavjud.",
+        quick_picks: "Tez tanlovlar", qp1: "🥙 Klassik Tovuq Shawarma", qp2: "🥙 Mol Doner Wrap", qp3: "🍟 Fri + Oq Sous",
+        see_full_menu: "To‘liq menyu →",
+        menu_title: "Menyu", order_now: "Hoziroq buyurtma",
+        cat_all: "Hammasi", cat_shawarma: "Shawarma", cat_doner: "Doner", cat_bowls: "Bowl", cat_sides: "Garnir", cat_drinks: "Ichimliklar",
+        item1_name: "Tovuq Shawarma Wrap", item1_price: "$9.99", item1_desc: "Marinadlangan tovuq, oq sous, bodring tuzlamasi, pomidor, ichida kartoshka fri.",
+        item2_name: "Mol Doner Wrap", item2_price: "$11.49", item2_desc: "Yupqa tilingan mol go‘shti, piyoz, petrushka, sumak, tahini.",
+        item3_name: "Aralash Shawarma Bowli", item3_price: "$12.99", item3_desc: "Guruch, salat, tovuq + mol, oq va achchiq souslar.",
+        item4_name: "XrUSTLI Fri", item4_price: "$3.99", item4_desc: "Qo‘shimcha oq sous +$0.75",
+        item5_name: "Ayran (Yogurt ichimlik)", item5_price: "$2.99", item5_desc: "Sovuq va yoqimli.",
+        item6_name: "Falafel Wrap (V)", item6_price: "$8.99", item6_desc: "Qarsildoq falafel, xummus, salat, tahini.",
+        hours_title: "Ish vaqti & Manzil", address: "472 Kings Highway, Brooklyn, NY 11223", mon_thu: "Dush–Pays", mon_thu_hours: "10:00 – 23:00", fri_sun: "Jum–Yak", fri_sun_hours: "10:00 – 00:00", phone_label: "Telefon", email_label: "Email",
+        btn_order_now: "Hoziroq buyurtma", open_in_maps: "Xaritada ochish",
+        faq_title: "Ko‘p so‘raladigan savollar", faq_halal: "<b>Uz Doner halolmi?</b> Ha — barcha go‘shtlar halol.", faq_prices: "<b>Pickup va delivery narxlari?</b> Clover’dagi pickup odatda delivery ilovalariga qaraganda arzonroq.", faq_sauce: "<b>Oq sous?</b> Bizning maxsus sarimsoq‑yogurt oq sousimiz standart; ko‘proq so‘rashingiz mumkin!",
+        follow_us: "Ijtimoiy tarmoqlar",
+        footer_brand: "Uz Doner", footer_tag: "Fresh 🔥 Doner & Shawarma — Brooklyn, NY", footer_rights: "Uz Doner. Barcha huquqlar himoyalangan."
+      },
+      ru: {
+        announce: "💥 <b>Grand Opening:</b> Самый выгодный самовывоз в <span class=\"font-semibold\">Clover</span>. Доставка через <span class=\"font-semibold\">DoorDash</span> или <span class=\"font-semibold\">Uber Eats</span>.",
+        brand_name: "Uz Doner",
+        brand_tag: "Бруклин, Нью‑Йорк • Халяль",
+        nav_menu: "Меню", nav_order: "Заказ", nav_hours: "Часы и Адрес",
+        call_short: "📞 (929) 241‑5927",
+        btn_order: "Заказать",
+        hero_title: "Fresh 🔥 Донер и Шаурма — быстро, вкусно, халяль.",
+        hero_desc: "Самовывоз (Clover) дешевле; доставка через DoorDash / Uber Eats. Нажмите кнопку ниже.",
+        pickup_clover: "Самовывоз (Clover)", delivery_dd: "Доставка (DoorDash)", delivery_ue: "Доставка (Uber Eats)",
+        pickup_note: "Самовывоз обычно дешевле. Доставка доступна через партнеров в вашем районе.",
+        quick_picks: "Быстрый выбор", qp1: "🥙 Классическая куриная шаурма", qp2: "🥙 Биф донер-ролл", qp3: "🍟 Картофель фри + белый соус",
+        see_full_menu: "Полное меню →",
+        menu_title: "Меню", order_now: "Заказать сейчас",
+        cat_all: "Все", cat_shawarma: "Шаурма", cat_doner: "Донер", cat_bowls: "Боул", cat_sides: "Гарниры", cat_drinks: "Напитки",
+        item1_name: "Куриная шаурма (ролл)", item1_price: "$9.99", item1_desc: "Маринованная курица, белый соус, солёные огурцы, помидоры, фри внутри.",
+        item2_name: "Донер с говядиной", item2_price: "$11.49", item2_desc: "Тонко нарезанная говядина, лук, петрушка, сумах, тахини.",
+        item3_name: "Боул микс шаурма", item3_price: "$12.99", item3_desc: "Рис, салат, курица + говядина, белый и острый соусы.",
+        item4_name: "Хрустящий фри", item4_price: "$3.99", item4_desc: "Доп. белый соус +$0.75",
+        item5_name: "Айран (йогуртовый напиток)", item5_price: "$2.99", item5_desc: "Холодный и освежающий.",
+        item6_name: "Фалафель-ролл (V)", item6_price: "$8.99", item6_desc: "Хрустящий фалафель, хумус, салат, тахини.",
+        hours_title: "Часы и Адрес", address: "472 Kings Highway, Brooklyn, NY 11223", mon_thu: "Пн–Чт", mon_thu_hours: "7:00AM – 3:00AM", fri_sun: "Пт–Вс", fri_sun_hours: "10:00 – 00:00", phone_label: "Телефон", email_label: "Email",
+        btn_order_now: "Заказать сейчас", open_in_maps: "Открыть в картах",
+        faq_title: "FAQ", faq_halal: "<b>Uz Doner — халяль?</b> Да, всё мясо халяль.", faq_prices: "<b>Цены самовывоз/доставка?</b> Самовывоз в Clover обычно дешевле, чем в приложениях доставки.", faq_sauce: "<b>Белый соус?</b> Наш фирменный чесночно‑йогуртовый белый соус включён; можно попросить больше!",
+        follow_us: "Мы в соцсетях",
+        footer_brand: "Uz Doner", footer_tag: "Fresh 🔥 Doner & Shawarma — Brooklyn, NY", footer_rights: "Uz Doner. Все права защищены."
+      }
+    };
+
+    function applyLang(lang){
+      const dict = translations[lang] || translations.en;
+      // Set html lang
+      document.documentElement.setAttribute('lang', lang);
+      // Loop all nodes with data-i18n
+      document.querySelectorAll('[data-i18n]').forEach(el=>{
+        const key = el.getAttribute('data-i18n');
+        const html = dict[key];
+        if(html!==undefined){ el.innerHTML = html; }
+      });
+      // Toggle pressed state on buttons
+      document.querySelectorAll('.lang-btn').forEach(btn=>{
+        btn.setAttribute('aria-pressed', String(btn.dataset.lang===lang));
+      });
+      localStorage.setItem('lang', lang);
+    }
+
+    // Language switcher init
+    document.addEventListener('click', (e)=>{
+      const btn = e.target.closest('.lang-btn');
+      if(!btn) return;
+      applyLang(btn.dataset.lang);
+    });
+
+    // Initialize from storage or browser
+    const saved = localStorage.getItem('lang');
+    const browser = (navigator.language||'en').slice(0,2);
+    const initial = saved || (['uz','ru','en'].includes(browser)? browser : 'en');
+    applyLang(initial);
+
+    // Current year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
-
-
