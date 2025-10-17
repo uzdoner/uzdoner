@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Uz Doner | Order Online • Halal Shawarma in Brooklyn</title>
-  <meta name="description" content="Uz Doner — Halal shawarma, doner & street eats in Brooklyn. Order pickup via Clover or delivery with DoorDash & Uber Eats." />
+  <meta name="description" content="Uz Doner — Halal shawarma, doner & street eats in Brooklyn. Order pickup via Clover or delivery with DoorDash & Uber Eats.">
   <link rel="icon" href="./uzdoner-Logo%20(1).png" />
   <meta name="theme-color" content="#111827" />
   <meta property="og:title" content="Uz Doner | Order Online" />
@@ -16,37 +16,55 @@
   <style>
     :root { color-scheme: light; }
     html{scroll-behavior:smooth}
-    body { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji"; }
+    body{font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji"}
     .glass{background:rgba(255,255,255,.75);backdrop-filter:saturate(140%) blur(8px)}
     .lang-btn[aria-pressed="true"]{outline:2px solid #000; outline-offset:2px}
-    .pill{display:inline-flex;align-items:center;gap:.4rem;border-radius:.6rem;padding:.35rem .6rem;font-weight:600;font-size:.75rem}
-    .brandpill{display:inline-flex;align-items:center;gap:.4rem;border-radius:.8rem;padding:.45rem .7rem;font-weight:700;font-size:.75rem}
     .card img{object-fit:cover;width:100%;height:100%}
+
+    /* ===== Brand Buttons (you asked specific styles) ===== */
+    .btn-brand{display:inline-flex;align-items:center;gap:.45rem;border-radius:.9rem;font-weight:700;font-size:.8rem;padding:.5rem .75rem;transition:opacity .15s;white-space:nowrap}
+    .btn-brand img{width:18px;height:18px;object-fit:contain}
+    .btn-brand:hover{opacity:.9}
+
+    /* Clover: white bg + thin green outline */
+    .btn-clover{background:#fff;border:1.5px solid #22c55e;color:#065f46}
+    /* DoorDash: white bg + thin red outline */
+    .btn-dd{background:#fff;border:1.5px solid #ef4444;color:#991b1b}
+    /* Uber Eats: solid green bg + thin black outline */
+    .btn-ue{background:#16a34a;border:1.5px solid #111827;color:#0b0b0b}
+    .btn-ue span{color:#0b0b0b}
+
+    /* Pills under each card (smaller) */
+    .pill{display:inline-flex;align-items:center;gap:.4rem;border-radius:.6rem;padding:.35rem .6rem;font-weight:600;font-size:.75rem;border:1px solid rgb(0 0 0 / 0.1);background:#fff}
+    .pill img{width:16px;height:16px;object-fit:contain}
   </style>
   <!-- LocalBusiness / Restaurant schema -->
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "Restaurant",
-    "name": "Uz Doner",
-    "image": "uzdoner-Logo%20(1).png",
-    "servesCuisine": ["Halal","Middle Eastern","Fast Casual"],
-    "address": {"@type":"PostalAddress","streetAddress":"472 Kings Highway","addressLocality":"Brooklyn","addressRegion":"NY","postalCode":"11223","addressCountry":"US"},
-    "telephone": "+1-929-241-5927",
-    "url": "https://your-domain-here.com",
-    "priceRange": "$$",
-    "acceptsReservations": false,
-    "openingHours": ["Mo-Su 07:00-23:59","Mo-Su 00:00-03:00"]
+    "@context":"https://schema.org",
+    "@type":"Restaurant",
+    "name":"Uz Doner",
+    "image":"uzdoner-Logo%20(1).png",
+    "servesCuisine":["Halal","Middle Eastern","Fast Casual"],
+    "address":{"@type":"PostalAddress","streetAddress":"472 Kings Highway","addressLocality":"Brooklyn","addressRegion":"NY","postalCode":"11223","addressCountry":"US"},
+    "telephone":"+1-929-241-5927",
+    "url":"https://your-domain-here.com",
+    "priceRange":"$$",
+    "acceptsReservations":false,
+    "openingHours":["Mo-Su 07:00-23:59","Mo-Su 00:00-03:00"]
   }
   </script>
 </head>
 <body class="bg-neutral-50 text-neutral-900">
-  <!-- ====== ANNOUNCEMENT BAR ====== -->
+  <!-- ===== Announcement ===== -->
   <div class="sticky top-0 z-[60] border-b border-neutral-200 glass">
-    <div class="max-w-6xl mx-auto px-4 py-2 text-center text-sm" data-i18n="announce">💥 <b>Grand Opening:</b> Pickup is cheapest on <span class="font-semibold">Clover</span>. Delivery via <span class="font-semibold">DoorDash</span> or <span class="font-semibold">Uber Eats</span>.</div>
+    <div class="max-w-6xl mx-auto px-4 py-2 text-center text-sm" data-i18n="announce">
+      💥 <b>Grand Opening:</b> Pickup is cheapest on <span class="font-semibold">Clover</span>. Delivery via
+      <span class="font-semibold">DoorDash</span> or <span class="font-semibold">Uber Eats</span>.
+    </div>
   </div>
 
-  <!-- ====== HEADER ====== -->
+  <!-- ===== Header ===== -->
   <header class="sticky top-10 z-50 bg-white/80 backdrop-blur border-b border-neutral-200">
     <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
       <a href="#" class="flex items-center gap-3">
@@ -69,13 +87,24 @@
           <button class="lang-btn rounded-lg px-2 py-1 text-base ring-1 ring-black/10" data-lang="ru" title="Русский"><span aria-hidden>🇷🇺</span><span class="sr-only">Russian</span></button>
           <button class="lang-btn rounded-lg px-2 py-1 text-base ring-1 ring-black/10" data-lang="en" title="English"><span aria-hidden>🇬🇧</span><span class="sr-only">English</span></button>
         </div>
-        <a href="tel:+19292415927" class="hidden sm:inline-flex items-center rounded-xl border px-3 py-2 text-sm" data-i18n="call_short">📞 (929) 241‑5927</a>
-        <a href="#order" class="inline-flex items-center gap-2 rounded-2xl px-4 py-2 text-sm font-semibold bg-black text-white shadow-sm hover:opacity-90" data-i18n="btn_order">Order</a>
+        <a href="tel:+19292415927" class="hidden sm:inline-flex items-center rounded-xl border px-3 py-2 text-sm" data-i18n="call_short">📞 (929) 241-5927</a>
+        <!-- Brand order buttons -->
+        <div id="order" class="hidden md:flex items-center gap-2">
+          <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="btn-brand btn-clover" aria-label="Order pickup on Clover">
+            <img src="images/logos/clover.svg" onerror="this.replaceWith(document.createTextNode('🍀'))" alt=""> <span>Clover</span>
+          </a>
+          <a href="https://www.doordash.com/store/uz-doner-brooklyn-36084261/79870747" class="btn-brand btn-dd" aria-label="Order on DoorDash">
+            <img src="images/logos/doordash.png" alt=""> <span>DoorDash</span>
+          </a>
+          <a href="https://www.ubereats.com/store/uzdoner-472-kings-highway/iL-Rve9uRWO5EhjBLFr7yQ?diningMode=DELIVERY" class="btn-brand btn-ue" aria-label="Order on Uber Eats">
+            <img src="images/logos/uber-eats.png" alt=""> <span>Uber&nbsp;Eats</span>
+          </a>
+        </div>
       </div>
     </div>
   </header>
 
-  <!-- ====== HERO ====== -->
+  <!-- ===== Hero ===== -->
   <section class="relative overflow-hidden">
     <div class="absolute inset-0 -z-10 bg-gradient-to-b from-neutral-100 to-neutral-50"></div>
 
@@ -83,32 +112,34 @@
       <div>
         <h1 class="text-4xl md:text-5xl font-extrabold leading-tight" data-i18n="hero_title">Fresh 🔥 Doner & Shawarma — tez, mazali, halal.</h1>
         <p class="mt-4 text-neutral-700" data-i18n="hero_desc">Pickup (Clover) arzonroq; Delivery DoorDash / Uber Eats orqali. Pastdagi tugmalardan birini bosing.</p>
-        <div id="order" class="mt-6 flex flex-wrap gap-3">
-          <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="brandpill ring-1 ring-emerald-600/30 bg-emerald-50" aria-label="Order pickup on Clover">🍀 Clover</a>
-          <a href="https://www.doordash.com/store/uz-doner-brooklyn-36084261/79870747/?srsltid=AfmBOorieL_5jV52iUmudBGjPl5z45rFdRT3ZDekhjlQghMTj144LNz5" class="brandpill ring-1 ring-red-600/30 bg-red-50" aria-label="Order delivery on DoorDash">🅳 DoorDash</a>
-          <a href="https://www.ubereats.com/store/uzdoner-472-kings-highway/iL-Rve9uRWO5EhjBLFr7yQ?diningMode=DELIVERY&surfaceName=" class="brandpill ring-1 ring-black/10 bg-neutral-100" aria-label="Order delivery on Uber Eats">🛵 Uber&nbsp;Eats</a>
+        <div class="mt-4 flex gap-2 md:hidden">
+          <!-- same brand buttons for mobile -->
+          <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="btn-brand btn-clover"><img src="images/logos/clover.svg" onerror="this.replaceWith(document.createTextNode('🍀'))" alt=""> <span>Clover</span></a>
+          <a href="https://www.doordash.com/store/uz-doner-brooklyn-36084261/79870747" class="btn-brand btn-dd"><img src="images/logos/doordash.png" alt=""> <span>DoorDash</span></a>
+          <a href="https://www.ubereats.com/store/uzdoner-472-kings-highway/iL-Rve9uRWO5EhjBLFr7yQ?diningMode=DELIVERY" class="btn-brand btn-ue"><img src="images/logos/uber-eats.png" alt=""> <span>Uber&nbsp;Eats</span></a>
         </div>
-        <p class="mt-3 text-xs text-neutral-500" data-i18n="pickup_note">Pickup odatda arzonroq. Delivery hamkorlar orqali hududingizda mavjud.</p>
+
+        <!-- Quick Picks updated and linked -->
+        <div class="mt-6 p-3 rounded-xl ring-1 ring-black/10 bg-white w-fit">
+          <div class="text-sm font-semibold">Quick Picks</div>
+          <ul class="mt-2 space-y-1 text-sm text-neutral-700">
+            <li><a href="#item-lamb-beef-wrap" class="underline">🌯 Lamb&amp;Beef Wrap</a></li>
+            <li><a href="#item-lamb-beef-shawarma" class="underline">🥙 Lamb&amp;Beef Shawarma</a></li>
+            <li><a href="#item-french-fries" class="underline">🍟 French Fries</a></li>
+          </ul>
+          <a href="#menu" class="mt-3 inline-flex text-sm font-semibold underline" data-i18n="see_full_menu">See full menu →</a>
+        </div>
       </div>
 
       <div class="relative">
         <div class="aspect-[4/3] w-full rounded-3xl ring-1 ring-black/5 bg-white/60 grid place-items-center shadow-lg">
           <img src="./uzdoner-Logo%20(1).png" alt="Uz Doner logo" class="h-40 w-40 object-contain opacity-90">
         </div>
-        <div class="absolute -bottom-6 right-6 w-[260px] rounded-2xl shadow-lg ring-1 ring-black/5 bg-white p-4">
-          <div class="text-sm font-semibold" data-i18n="quick_picks">Quick Picks</div>
-          <ul class="mt-2 space-y-1 text-sm text-neutral-700">
-            <li data-i18n="qp1">🥙 Classic Chicken Shawarma</li>
-            <li data-i18n="qp2">🥙 Beef Doner Wrap</li>
-            <li data-i18n="qp3">🍟 Fries + White Sauce</li>
-          </ul>
-          <a href="#menu" class="mt-3 inline-flex text-sm font-semibold underline" data-i18n="see_full_menu">See full menu →</a>
-        </div>
       </div>
     </div>
   </section>
 
-  <!-- ====== MENU ====== -->
+  <!-- ===== MENU ===== -->
   <section id="menu" class="py-14 border-t border-neutral-200">
     <div class="max-w-6xl mx-auto px-4">
       <div class="flex items-end justify-between gap-4">
@@ -117,32 +148,32 @@
       </div>
 
       <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- NOTE: Prices/descriptions sourced from the public Uber Eats page (Oct 2025). Some apps don't expose stable per-item deep links; replace href="#UE_ITEM" and href="#DD_ITEM" with your real item share links if you have them. -->
+        <!-- NOTE: Per-item deep links vary by app. Replace the DoorDash/Uber href values with the exact "Share item" URLs when you have them. -->
 
         <!-- Lamb & Beef Wrap -->
-        <article class="card rounded-2xl ring-1 ring-black/5 bg-white overflow-hidden">
+        <article id="item-lamb-beef-wrap" class="card rounded-2xl ring-1 ring-black/5 bg-white overflow-hidden">
           <div class="aspect-[4/3] bg-neutral-100"><img src="images/lamb-beef-wrap.png" onerror="this.onerror=null;this.src='images/lamb-beef-wrap.jpg'" alt="Lamb & Beef Wrap"></div>
           <div class="p-4">
             <div class="flex items-center justify-between"><h3 class="font-bold">Lamb & Beef Wrap</h3><span class="text-sm font-semibold">$13.99</span></div>
-            <p class="mt-1 text-sm text-neutral-600">Lamb & beef with 5 fresh salads (tomatoes, cucumbers, onion, lettuce, pickle) + white & red sauce.</p>
+            <p class="mt-1 text-sm text-neutral-600">Lamb & beef with 5 fresh salads (tomato, cucumber, onion, lettuce, pickle) + white & red sauce.</p>
             <div class="mt-3 flex flex-wrap gap-2">
-              <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill ring-1 ring-emerald-600/30 bg-emerald-50">🍀 Clover</a>
-              <a href="#DD_ITEM_LB_WRAP" class="pill ring-1 ring-red-600/30 bg-red-50">🅳 DoorDash</a>
-              <a href="#UE_ITEM_LB_WRAP" class="pill ring-1 ring-black/10 bg-neutral-100">🛵 Uber Eats</a>
+              <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill"><img src="images/logos/clover.svg" onerror="this.remove()"><span>Pickup (Clover)</span></a>
+              <a href="https://www.doordash.com/store/uz-doner-brooklyn-36084261/79870747" class="pill"><img src="images/logos/doordash.png"><span>DoorDash</span></a>
+              <a href="https://www.ubereats.com/store/uzdoner-472-kings-highway/iL-Rve9uRWO5EhjBLFr7yQ?diningMode=DELIVERY" class="pill"><img src="images/logos/uber-eats.png"><span>Uber&nbsp;Eats</span></a>
             </div>
           </div>
         </article>
 
         <!-- Lamb & Beef Shawarma -->
-        <article class="card rounded-2xl ring-1 ring-black/5 bg-white overflow-hidden">
+        <article id="item-lamb-beef-shawarma" class="card rounded-2xl ring-1 ring-black/5 bg-white overflow-hidden">
           <div class="aspect-[4/3] bg-neutral-100"><img src="images/lamb-beef-shawarma.png" onerror="this.onerror=null;this.src='images/lamb-beef-shawarma.jpg'" alt="Lamb & Beef Shawarma"></div>
           <div class="p-4">
             <div class="flex items-center justify-between"><h3 class="font-bold">Lamb & Beef Shawarma</h3><span class="text-sm font-semibold">$13.99</span></div>
             <p class="mt-1 text-sm text-neutral-600">Comes with 5 fresh salads; white garlic & red sauces.</p>
             <div class="mt-3 flex flex-wrap gap-2">
-              <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill ring-1 ring-emerald-600/30 bg-emerald-50">🍀 Clover</a>
-              <a href="#DD_ITEM_LB_SHAW" class="pill ring-1 ring-red-600/30 bg-red-50">🅳 DoorDash</a>
-              <a href="#UE_ITEM_LB_SHAW" class="pill ring-1 ring-black/10 bg-neutral-100">🛵 Uber Eats</a>
+              <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill"><img src="images/logos/clover.svg" onerror="this.remove()"><span>Pickup (Clover)</span></a>
+              <a href="https://www.doordash.com/store/uz-doner-brooklyn-36084261/79870747" class="pill"><img src="images/logos/doordash.png"><span>DoorDash</span></a>
+              <a href="https://www.uber e ats.com/store/uzdoner-472-kings-highway/iL-Rve9uRWO5EhjBLFr7yQ?diningMode=DELIVERY" class="pill"><img src="images/logos/uber-eats.png"><span>Uber&nbsp;Eats</span></a>
             </div>
           </div>
         </article>
@@ -154,9 +185,9 @@
             <div class="flex items-center justify-between"><h3 class="font-bold">Chicken Shawarma</h3><span class="text-sm font-semibold">$13.99</span></div>
             <p class="mt-1 text-sm text-neutral-600">House shawarma chicken with fresh salads and sauces.</p>
             <div class="mt-3 flex flex-wrap gap-2">
-              <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill ring-1 ring-emerald-600/30 bg-emerald-50">🍀 Clover</a>
-              <a href="#DD_ITEM_CHK_SHAW" class="pill ring-1 ring-red-600/30 bg-red-50">🅳 DoorDash</a>
-              <a href="#UE_ITEM_CHK_SHAW" class="pill ring-1 ring-black/10 bg-neutral-100">🛵 Uber Eats</a>
+              <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill"><img src="images/logos/clover.svg" onerror="this.remove()"><span>Pickup (Clover)</span></a>
+              <a href="https://www.doordash.com/store/uz-doner-brooklyn-36084261/79870747" class="pill"><img src="images/logos/doordash.png"><span>DoorDash</span></a>
+              <a href="https://www.ubereats.com/store/uzdoner-472-kings-highway/iL-Rve9uRWO5EhjBLFr7yQ?diningMode=DELIVERY" class="pill"><img src="images/logos/uber-eats.png"><span>Uber&nbsp;Eats</span></a>
             </div>
           </div>
         </article>
@@ -168,9 +199,9 @@
             <div class="flex items-center justify-between"><h3 class="font-bold">Chicken Wrap</h3><span class="text-sm font-semibold">$13.99</span></div>
             <p class="mt-1 text-sm text-neutral-600">Shawarma chicken wrap.</p>
             <div class="mt-3 flex flex-wrap gap-2">
-              <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill ring-1 ring-emerald-600/30 bg-emerald-50">🍀 Clover</a>
-              <a href="#DD_ITEM_CHK_WRAP" class="pill ring-1 ring-red-600/30 bg-red-50">🅳 DoorDash</a>
-              <a href="#UE_ITEM_CHK_WRAP" class="pill ring-1 ring-black/10 bg-neutral-100">🛵 Uber Eats</a>
+              <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill"><img src="images/logos/clover.svg" onerror="this.remove()"><span>Pickup (Clover)</span></a>
+              <a href="https://www.doordash.com/store/uz-doner-brooklyn-36084261/79870747" class="pill"><img src="images/logos/doordash.png"><span>DoorDash</span></a>
+              <a href="https://www.ubereats.com/store/uzdoner-472-kings-highway/iL-Rve9uRWO5EhjBLFr7yQ?diningMode=DELIVERY" class="pill"><img src="images/logos/uber-eats.png"><span>Uber&nbsp;Eats</span></a>
             </div>
           </div>
         </article>
@@ -182,9 +213,9 @@
             <div class="flex items-center justify-between"><h3 class="font-bold">Chicken Platter</h3><span class="text-sm font-semibold">$16.99</span></div>
             <p class="mt-1 text-sm text-neutral-600">Served with fries and salads, white & red sauces.</p>
             <div class="mt-3 flex flex-wrap gap-2">
-              <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill ring-1 ring-emerald-600/30 bg-emerald-50">🍀 Clover</a>
-              <a href="#DD_ITEM_CHK_PLAT" class="pill ring-1 ring-red-600/30 bg-red-50">🅳 DoorDash</a>
-              <a href="#UE_ITEM_CHK_PLAT" class="pill ring-1 ring-black/10 bg-neutral-100">🛵 Uber Eats</a>
+              <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill"><img src="images/logos/clover.svg" onerror="this.remove()"><span>Pickup (Clover)</span></a>
+              <a href="https://www.doordash.com/store/uz-doner-brooklyn-36084261/79870747" class="pill"><img src="images/logos/doordash.png"><span>DoorDash</span></a>
+              <a href="https://www.ubereats.com/store/uzdoner-472-kings-highway/iL-Rve9uRWO5EhjBLFr7yQ?diningMode=DELIVERY" class="pill"><img src="images/logos/uber-eats.png"><span>Uber&nbsp;Eats</span></a>
             </div>
           </div>
         </article>
@@ -196,9 +227,9 @@
             <div class="flex items-center justify-between"><h3 class="font-bold">Lamb & Beef Platter</h3><span class="text-sm font-semibold">$16.99</span></div>
             <p class="mt-1 text-sm text-neutral-600">Meat with fries and 5 fresh salads, white & red sauces.</p>
             <div class="mt-3 flex flex-wrap gap-2">
-              <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill ring-1 ring-emerald-600/30 bg-emerald-50">🍀 Clover</a>
-              <a href="#DD_ITEM_LB_PLAT" class="pill ring-1 ring-red-600/30 bg-red-50">🅳 DoorDash</a>
-              <a href="#UE_ITEM_LB_PLAT" class="pill ring-1 ring-black/10 bg-neutral-100">🛵 Uber Eats</a>
+              <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill"><img src="images/logos/clover.svg" onerror="this.remove()"><span>Pickup (Clover)</span></a>
+              <a href="https://www.doordash.com/store/uz-doner-brooklyn-36084261/79870747" class="pill"><img src="images/logos/doordash.png"><span>DoorDash</span></a>
+              <a href="https://www.ubereats.com/store/uzdoner-472-kings-highway/iL-Rve9uRWO5EhjBLFr7yQ?diningMode=DELIVERY" class="pill"><img src="images/logos/uber-eats.png"><span>Uber&nbsp;Eats</span></a>
             </div>
           </div>
         </article>
@@ -210,9 +241,9 @@
             <div class="flex items-center justify-between"><h3 class="font-bold">Mix Gyro</h3><span class="text-sm font-semibold">$13.99</span></div>
             <p class="mt-1 text-sm text-neutral-600">Mixed gyro.</p>
             <div class="mt-3 flex flex-wrap gap-2">
-              <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill ring-1 ring-emerald-600/30 bg-emerald-50">🍀 Clover</a>
-              <a href="#DD_ITEM_MIX_GYRO" class="pill ring-1 ring-red-600/30 bg-red-50">🅳 DoorDash</a>
-              <a href="#UE_ITEM_MIX_GYRO" class="pill ring-1 ring-black/10 bg-neutral-100">🛵 Uber Eats</a>
+              <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill"><img src="images/logos/clover.svg" onerror="this.remove()"><span>Pickup (Clover)</span></a>
+              <a href="https://www.doordash.com/store/uz-doner-brooklyn-36084261/79870747" class="pill"><img src="images/logos/doordash.png"><span>DoorDash</span></a>
+              <a href="https://www.ubereats.com/store/uzdoner-472-kings-highway/iL-Rve9uRWO5EhjBLFr7yQ?diningMode=DELIVERY" class="pill"><img src="images/logos/uber-eats.png"><span>Uber&nbsp;Eats</span></a>
             </div>
           </div>
         </article>
@@ -224,9 +255,9 @@
             <div class="flex items-center justify-between"><h3 class="font-bold">Mix Gyro Platter</h3><span class="text-sm font-semibold">$16.99</span></div>
             <p class="mt-1 text-sm text-neutral-600">Mixed gyro with sides.</p>
             <div class="mt-3 flex flex-wrap gap-2">
-              <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill ring-1 ring-emerald-600/30 bg-emerald-50">🍀 Clover</a>
-              <a href="#DD_ITEM_MIX_PLAT" class="pill ring-1 ring-red-600/30 bg-red-50">🅳 DoorDash</a>
-              <a href="#UE_ITEM_MIX_PLAT" class="pill ring-1 ring-black/10 bg-neutral-100">🛵 Uber Eats</a>
+              <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill"><img src="images/logos/clover.svg" onerror="this.remove()"><span>Pickup (Clover)</span></a>
+              <a href="https://www.doordash.com/store/uz-doner-brooklyn-36084261/79870747" class="pill"><img src="images/logos/doordash.png"><span>DoorDash</span></a>
+              <a href="https://www.ubereats.com/store/uzdoner-472-kings-highway/iL-Rve9uRWO5EhjBLFr7yQ?diningMode=DELIVERY" class="pill"><img src="images/logos/uber-eats.png"><span>Uber&nbsp;Eats</span></a>
             </div>
           </div>
         </article>
@@ -238,37 +269,37 @@
             <div class="flex items-center justify-between"><h3 class="font-bold">Samsa</h3><span class="text-sm font-semibold">$2.99</span></div>
             <p class="mt-1 text-sm text-neutral-600">Made with beef.</p>
             <div class="mt-3 flex flex-wrap gap-2">
-              <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill ring-1 ring-emerald-600/30 bg-emerald-50">🍀 Clover</a>
-              <a href="#DD_ITEM_SAMSA" class="pill ring-1 ring-red-600/30 bg-red-50">🅳 DoorDash</a>
-              <a href="#UE_ITEM_SAMSA" class="pill ring-1 ring-black/10 bg-neutral-100">🛵 Uber Eats</a>
+              <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill"><img src="images/logos/clover.svg" onerror="this.remove()"><span>Pickup (Clover)</span></a>
+              <a href="https://www.doordash.com/store/uz-doner-brooklyn-36084261/79870747" class="pill"><img src="images/logos/doordash.png"><span>DoorDash</span></a>
+              <a href="https://www.ubereats.com/store/uzdoner-472-kings-highway/iL-Rve9uRWO5EhjBLFr7yQ?diningMode=DELIVERY" class="pill"><img src="images/logos/uber-eats.png"><span>Uber&nbsp;Eats</span></a>
             </div>
           </div>
         </article>
 
         <!-- French Fries -->
-        <article class="card rounded-2xl ring-1 ring-black/5 bg-white overflow-hidden">
+        <article id="item-french-fries" class="card rounded-2xl ring-1 ring-black/5 bg-white overflow-hidden">
           <div class="aspect-[4/3] bg-neutral-100"><img src="images/french-fries.png" onerror="this.onerror=null;this.src='images/french-fries.jpg'" alt="French Fries"></div>
           <div class="p-4">
             <div class="flex items-center justify-between"><h3 class="font-bold">French Fries</h3><span class="text-sm font-semibold">$4.99</span></div>
             <p class="mt-1 text-sm text-neutral-600">Crispy fries; add white sauce if you like.</p>
             <div class="mt-3 flex flex-wrap gap-2">
-              <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill ring-1 ring-emerald-600/30 bg-emerald-50">🍀 Clover</a>
-              <a href="#DD_ITEM_FRIES" class="pill ring-1 ring-red-600/30 bg-red-50">🅳 DoorDash</a>
-              <a href="#UE_ITEM_FRIES" class="pill ring-1 ring-black/10 bg-neutral-100">🛵 Uber Eats</a>
+              <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill"><img src="images/logos/clover.svg" onerror="this.remove()"><span>Pickup (Clover)</span></a>
+              <a href="https://www.doordash.com/store/uz-doner-brooklyn-36084261/79870747" class="pill"><img src="images/logos/doordash.png"><span>DoorDash</span></a>
+              <a href="https://www.ubereats.com/store/uzdoner-472-kings-highway/iL-Rve9uRWO5EhjBLFr7yQ?diningMode=DELIVERY" class="pill"><img src="images/logos/uber-eats.png"><span>Uber&nbsp;Eats</span></a>
             </div>
           </div>
         </article>
 
-        <!-- Super Hot Dog (DoorDash popular) -->
+        <!-- Super Hot Dog -->
         <article class="card rounded-2xl ring-1 ring-black/5 bg-white overflow-hidden">
           <div class="aspect-[4/3] bg-neutral-100"><img src="images/super-hotdog.png" onerror="this.onerror=null;this.src='images/super-hotdog.jpg'" alt="Super Hot Dog"></div>
           <div class="p-4">
             <div class="flex items-center justify-between"><h3 class="font-bold">Super Hot Dog</h3><span class="text-sm font-semibold">$11.99</span></div>
             <p class="mt-1 text-sm text-neutral-600">Popular hot dog.</p>
             <div class="mt-3 flex flex-wrap gap-2">
-              <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill ring-1 ring-emerald-600/30 bg-emerald-50">🍀 Clover</a>
-              <a href="#DD_ITEM_HOTDOG" class="pill ring-1 ring-red-600/30 bg-red-50">🅳 DoorDash</a>
-              <a href="#UE_ITEM_HOTDOG" class="pill ring-1 ring-black/10 bg-neutral-100">🛵 Uber Eats</a>
+              <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill"><img src="images/logos/clover.svg" onerror="this.remove()"><span>Pickup (Clover)</span></a>
+              <a href="https://www.doordash.com/store/uz-doner-brooklyn-36084261/79870747" class="pill"><img src="images/logos/doordash.png"><span>DoorDash</span></a>
+              <a href="https://www.ubereats.com/store/uzdoner-472-kings-highway/iL-Rve9uRWO5EhjBLFr7yQ?diningMode=DELIVERY" class="pill"><img src="images/logos/uber-eats.png"><span>Uber&nbsp;Eats</span></a>
             </div>
           </div>
         </article>
@@ -278,11 +309,11 @@
           <div class="aspect-[4/3] bg-neutral-100"><img src="images/moxito.png" onerror="this.onerror=null;this.src='images/moxito.jpg'" alt="Moxito"></div>
           <div class="p-4">
             <div class="flex items-center justify-between"><h3 class="font-bold">Moxito</h3><span class="text-sm font-semibold">$3.99</span></div>
-            <p class="mt-1 text-sm text-neutral-600">Russian‑style mojito (non‑alcoholic).</p>
+            <p class="mt-1 text-sm text-neutral-600">Russian-style mojito (non-alcoholic).</p>
             <div class="mt-3 flex flex-wrap gap-2">
-              <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill ring-1 ring-emerald-600/30 bg-emerald-50">🍀 Clover</a>
-              <a href="#DD_ITEM_MOXITO" class="pill ring-1 ring-red-600/30 bg-red-50">🅳 DoorDash</a>
-              <a href="#UE_ITEM_MOXITO" class="pill ring-1 ring-black/10 bg-neutral-100">🛵 Uber Eats</a>
+              <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill"><img src="images/logos/clover.svg" onerror="this.remove()"><span>Pickup (Clover)</span></a>
+              <a href="https://www.doordash.com/store/uz-doner-brooklyn-36084261/79870747" class="pill"><img src="images/logos/doordash.png"><span>DoorDash</span></a>
+              <a href="https://www.ubereats.com/store/uzdoner-472-kings-highway/iL-Rve9uRWO5EhjBLFr7yQ?diningMode=DELIVERY" class="pill"><img src="images/logos/uber-eats.png"><span>Uber&nbsp;Eats</span></a>
             </div>
           </div>
         </article>
@@ -293,9 +324,22 @@
             <div class="flex items-center justify-between"><h3 class="font-bold">Coke</h3><span class="text-sm font-semibold">$2.50</span></div>
             <p class="mt-1 text-sm text-neutral-600">Cold soda.</p>
             <div class="mt-3 flex flex-wrap gap-2">
-              <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill ring-1 ring-emerald-600/30 bg-emerald-50">🍀 Clover</a>
-              <a href="#DD_ITEM_COKE" class="pill ring-1 ring-red-600/30 bg-red-50">🅳 DoorDash</a>
-              <a href="#UE_ITEM_COKE" class="pill ring-1 ring-black/10 bg-neutral-100">🛵 Uber Eats</a>
+              <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill"><img src="images/logos/clover.svg" onerror="this.remove()"><span>Pickup (Clover)</span></a>
+              <a href="https://www.doordash.com/store/uz-doner-brooklyn-36084261/79870747" class="pill"><img src="images/logos/doordash.png"><span>DoorDash</span></a>
+              <a href="https://www.ubereats.com/store/uzdoner-472-kings-highway/iL-Rve9uRWO5EhjBLFr7yQ?diningMode=DELIVERY" class="pill"><img src="images/logos/uber-eats.png"><span>Uber&nbsp;Eats</span></a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card rounded-2xl ring-1 ring-black/5 bg-white overflow-hidden">
+          <div class="aspect-[4/3] bg-neutral-100"><img src="images/s-pellegrino.png" onerror="this.onerror=null;this.src='images/s-pellegrino.jpg'" alt="S.Pellegrino"></div>
+          <div class="p-4">
+            <div class="flex items-center justify-between"><h3 class="font-bold">S.Pellegrino</h3><span class="text-sm font-semibold">$2.99</span></div>
+            <p class="mt-1 text-sm text-neutral-600">Sparkling mineral water.</p>
+            <div class="mt-3 flex flex-wrap gap-2">
+              <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill"><img src="images/logos/clover.svg" onerror="this.remove()"><span>Pickup (Clover)</span></a>
+              <a href="https://www.doordash.com/store/uz-doner-brooklyn-36084261/79870747" class="pill"><img src="images/logos/doordash.png"><span>DoorDash</span></a>
+              <a href="https://www.ubereats.com/store/uzdoner-472-kings-highway/iL-Rve9uRWO5EhjBLFr7yQ?diningMode=DELIVERY" class="pill"><img src="images/logos/uber-eats.png"><span>Uber&nbsp;Eats</span></a>
             </div>
           </div>
         </article>
@@ -306,9 +350,9 @@
             <div class="flex items-center justify-between"><h3 class="font-bold">Borjomi</h3><span class="text-sm font-semibold">$3.99</span></div>
             <p class="mt-1 text-sm text-neutral-600">Georgian mineral water.</p>
             <div class="mt-3 flex flex-wrap gap-2">
-              <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill ring-1 ring-emerald-600/30 bg-emerald-50">🍀 Clover</a>
-              <a href="#DD_ITEM_BORJOMI" class="pill ring-1 ring-red-600/30 bg-red-50">🅳 DoorDash</a>
-              <a href="#UE_ITEM_BORJOMI" class="pill ring-1 ring-black/10 bg-neutral-100">🛵 Uber Eats</a>
+              <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill"><img src="images/logos/clover.svg" onerror="this.remove()"><span>Pickup (Clover)</span></a>
+              <a href="https://www.doordash.com/store/uz-doner-brooklyn-36084261/79870747" class="pill"><img src="images/logos/doordash.png"><span>DoorDash</span></a>
+              <a href="https://www.ubereats.com/store/uzdoner-472-kings-highway/iL-Rve9uRWO5EhjBLFr7yQ?diningMode=DELIVERY" class="pill"><img src="images/logos/uber-eats.png"><span>Uber&nbsp;Eats</span></a>
             </div>
           </div>
         </article>
@@ -319,9 +363,9 @@
             <div class="flex items-center justify-between"><h3 class="font-bold">Coffee</h3><span class="text-sm font-semibold">$2.50</span></div>
             <p class="mt-1 text-sm text-neutral-600">Hot coffee.</p>
             <div class="mt-3 flex flex-wrap gap-2">
-              <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill ring-1 ring-emerald-600/30 bg-emerald-50">🍀 Clover</a>
-              <a href="#DD_ITEM_COFFEE" class="pill ring-1 ring-red-600/30 bg-red-50">🅳 DoorDash</a>
-              <a href="#UE_ITEM_COFFEE" class="pill ring-1 ring-black/10 bg-neutral-100">🛵 Uber Eats</a>
+              <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill"><img src="images/logos/clover.svg" onerror="this.remove()"><span>Pickup (Clover)</span></a>
+              <a href="https://www.doordash.com/store/uz-doner-brooklyn-36084261/79870747" class="pill"><img src="images/logos/doordash.png"><span>DoorDash</span></a>
+              <a href="https://www.ubereats.com/store/uzdoner-472-kings-highway/iL-Rve9uRWO5EhjBLFr7yQ?diningMode=DELIVERY" class="pill"><img src="images/logos/uber-eats.png"><span>Uber&nbsp;Eats</span></a>
             </div>
           </div>
         </article>
@@ -333,20 +377,21 @@
             <div class="flex items-center justify-between"><h3 class="font-bold">Gumma</h3><span class="text-sm font-semibold">$3.99</span></div>
             <p class="mt-1 text-sm text-neutral-600">Made with heart of chicken.</p>
             <div class="mt-3 flex flex-wrap gap-2">
-              <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill ring-1 ring-emerald-600/30 bg-emerald-50">🍀 Clover</a>
-              <a href="#DD_ITEM_GUMMA" class="pill ring-1 ring-red-600/30 bg-red-50">🅳 DoorDash</a>
-              <a href="#UE_ITEM_GUMMA" class="pill ring-1 ring-black/10 bg-neutral-100">🛵 Uber Eats</a>
+              <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill"><img src="images/logos/clover.svg" onerror="this.remove()"><span>Pickup (Clover)</span></a>
+              <a href="https://www.doordash.com/store/uz-doner-brooklyn-36084261/79870747" class="pill"><img src="images/logos/doordash.png"><span>DoorDash</span></a>
+              <a href="https://www.ubereats.com/store/uzdoner-472-kings-highway/iL-Rve9uRWO5EhjBLFr7yQ?diningMode=DELIVERY" class="pill"><img src="images/logos/uber-eats.png"><span>Uber&nbsp;Eats</span></a>
             </div>
           </div>
         </article>
-
       </div>
 
-      <p class="mt-6 text-xs text-neutral-500">Prices & descriptions synced from the public Uber Eats listing for Uzdoner (472 Kings Highway); some items/prices may vary on DoorDash. Replace the placeholder item links above with the exact app deep links for each dish when you have them.</p>
+      <p class="mt-6 text-xs text-neutral-500">
+        Prices & descriptions based on public app listings; some items/prices may vary by app. Replace DoorDash/Uber links above with exact per-item links when available.
+      </p>
     </div>
   </section>
 
-  <!-- ====== HOURS & LOCATION ====== -->
+  <!-- ===== Hours & Location ===== -->
   <section id="hours" class="py-14 border-t border-neutral-200">
     <div class="max-w-6xl mx-auto px-4 grid lg:grid-cols-2 gap-8 items-start">
       <div>
@@ -360,7 +405,7 @@
           </div>
           <div class="bg-white rounded-xl ring-1 ring-black/5 p-3">
             <dt class="font-semibold">Phone</dt>
-            <dd class="text-neutral-600"><a class="underline" href="tel:+19292415927">(929) 241‑5927</a></dd>
+            <dd class="text-neutral-600"><a class="underline" href="tel:+19292415927">(929) 241-5927</a></dd>
           </div>
           <div class="bg-white rounded-xl ring-1 ring-black/5 p-3">
             <dt class="font-semibold">Email</dt>
@@ -381,29 +426,30 @@
     </div>
   </section>
 
-  <!-- ====== FAQ / NOTES ====== -->
+  <!-- ===== Instagram + Review ===== -->
   <section class="py-14 border-t border-neutral-200">
-    <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-8">
-      <div>
-        <h2 class="text-2xl md:text-3xl font-extrabold">FAQ</h2>
-        <ul class="mt-6 space-y-4 text-sm text-neutral-700">
-          <li><b>Is Uz Doner halal?</b> Yes — all meats are halal.</li>
-          <li><b>Pickup vs delivery prices?</b> Pickup on Clover is usually cheaper than delivery apps.</li>
-          <li><b>White sauce?</b> Our signature garlic-yogurt white sauce comes standard; ask for extra!</li>
-        </ul>
-      </div>
-      <div>
-        <h3 class="text-xl font-bold">Follow Us</h3>
-        <div class="mt-4 flex gap-3 text-sm">
-          <a href="#" class="inline-flex items-center gap-2 rounded-xl px-4 py-2 ring-1 ring-black/10">Instagram</a>
-          <a href="#" class="inline-flex items-center gap-2 rounded-xl px-4 py-2 ring-1 ring-black/10">TikTok</a>
-          <a href="#" class="inline-flex items-center gap-2 rounded-xl px-4 py-2 ring-1 ring-black/10">Facebook</a>
+    <div class="max-w-6xl mx-auto px-4 grid gap-6">
+      <!-- Instagram only -->
+      <div class="flex items-center justify-between p-4 rounded-2xl ring-1 ring-black/5 bg-white">
+        <div class="flex items-center gap-3">
+          <img src="images/logos/instagram.svg" alt="" class="h-5 w-5" onerror="this.remove()">
+          <div class="text-base font-semibold">Follow us</div>
         </div>
+        <a href="https://www.instagram.com/uzdoner_/" class="btn-brand btn-dd" style="border-color:#0000001a;color:#111827;background:#fff">
+          <span>@uzdoner_</span>
+        </a>
+      </div>
+
+      <!-- Review us on Google Maps -->
+      <div class="rounded-2xl ring-1 ring-black/5 bg-white p-5 flex items-center justify-between">
+        <div class="text-base font-semibold">REVIEW us on Google Maps</div>
+        <div class="text-2xl" aria-label="5 stars">★★★★★</div>
+        <a href="https://maps.google.com/?q=472+Kings+Highway,+Brooklyn,+NY+11223" class="inline-flex items-center gap-2 rounded-xl px-4 py-2 font-semibold ring-1 ring-black/10">Open</a>
       </div>
     </div>
   </section>
 
-  <!-- ====== FOOTER ====== -->
+  <!-- ===== Footer ===== -->
   <footer class="border-t border-neutral-200">
     <div class="max-w-6xl mx-auto px-4 py-8 grid md:grid-cols-2 gap-6 text-sm">
       <div class="flex items-center gap-3">
@@ -413,30 +459,31 @@
           <div class="text-neutral-600">Fresh 🔥 Doner & Shawarma — Brooklyn, NY</div>
         </div>
       </div>
-      <div class="md:text-right text-neutral-600">© <span id="year"></span> Uz Doner. All rights reserved.</div>
+      <div class="md:text-right text-neutral-600">
+        © 2025 Uz Doner. All rights reserved.
+        <br>
+        <a href="https://www.instagram.com/im.sheralii/" class="underline">powered by shers</a>
+      </div>
     </div>
   </footer>
 
-  <!-- ====== I18N + SMALL JS ====== -->
+  <!-- ===== I18N + Small JS ===== -->
   <script>
-    const translations = { en: { announce: "💥 <b>Grand Opening:</b> Pickup is cheapest on <span class=\"font-semibold\">Clover</span>. Delivery via <span class=\"font-semibold\">DoorDash</span> or <span class=\"font-semibold\">Uber Eats</span>.", brand_name: "Uz Doner", brand_tag: "Brooklyn, NY • Halal", nav_menu: "Menu", nav_order: "Order", nav_hours: "Hours & Location", call_short:"📞 (929) 241‑5927", btn_order:"Order", hero_title:"Fresh 🔥 Doner & Shawarma — fast, tasty, halal.", hero_desc:"Pickup (Clover) is cheaper; delivery via DoorDash / Uber Eats. Tap a button below.", pickup_clover:"Pickup (Clover)", delivery_dd:"Delivery (DoorDash)", delivery_ue:"Delivery (Uber Eats)", pickup_note:"Pickup is usually cheaper. Delivery available in your area via partners.", quick_picks:"Quick Picks", qp1:"🥙 Classic Chicken Shawarma", qp2:"🥙 Beef Doner Wrap", qp3:"🍟 Fries + White Sauce", see_full_menu:"See full menu →" }, uz: { announce:"💥 <b>Grand Opening:</b> Eng arzon <span class=\"font-semibold\">Clover</span> pickup. Yetkazib berish <span class=\"font-semibold\">DoorDash</span> yoki <span class=\"font-semibold\">Uber Eats</span> orqali.", brand_name:"Uz Doner", brand_tag:"Brooklyn, NY • Halol", nav_menu:"Menyu", nav_order:"Buyurtma", nav_hours:"Ish vaqti & Manzil", call_short:"📞 (929) 241‑5927", btn_order:"Buyurtma", hero_title:"Fresh 🔥 Doner & Shawarma — tez, mazali, halol.", hero_desc:"Pickup (Clover) arzonroq; yetkazib berish DoorDash / Uber Eats orqali. Pastdagi tugmani bosing.", pickup_clover:"Pickup (Clover)", delivery_dd:"Yetkazish (DoorDash)", delivery_ue:"Yetkazish (Uber Eats)", pickup_note:"Pickup odatda arzonroq. Yetkazib berish hamkorlar orqali hududingizda mavjud.", quick_picks:"Tez tanlovlar", qp1:"🥙 Klassik Tovuq Shawarma", qp2:"🥙 Mol Doner Wrap", qp3:"🍟 Fri + Oq Sous", see_full_menu:"To‘liq menyu →" }, ru: { announce:"💥 <b>Grand Opening:</b> Самый выгодный самовывоз в <span class=\"font-semibold\">Clover</span>. Доставка через <span class=\"font-semibold\">DoorDash</span> или <span class=\"font-semibold\">Uber Eats</span>.", brand_name:"Uz Doner", brand_tag:"Бруклин, Нью‑Йорк • Халяль", nav_menu:"Меню", nav_order:"Заказ", nav_hours:"Часы и Адрес", call_short:"📞 (929) 241‑5927", btn_order:"Заказать", hero_title:"Fresh 🔥 Донер и Шаурма — быстро, вкусно, халяль.", hero_desc:"Самовывоз (Clover) дешевле; доставка через DoorDash / Uber Eats. Нажмите кнопку ниже.", pickup_clover:"Самовывоз (Clover)", delivery_dd:"Доставка (DoorDash)", delivery_ue:"Доставка (Uber Eats)", pickup_note:"Самовывоз обычно дешевле. Доставка доступна через партнеров в вашем районе.", quick_picks:"Быстрый выбор", qp1:"🥙 Классическая куриная шаурма", qp2:"🥙 Биф донер-ролл", qp3:"🍟 Картофель фри + белый соус", see_full_menu:"Полное меню →" } };
+    const translations={en:{announce:"💥 <b>Grand Opening:</b> Pickup is cheapest on <span class=\"font-semibold\">Clover</span>. Delivery via <span class=\"font-semibold\">DoorDash</span> or <span class=\"font-semibold\">Uber Eats</span>.",brand_name:"Uz Doner",brand_tag:"Brooklyn, NY • Halal",nav_menu:"Menu",nav_order:"Order",nav_hours:"Hours & Location",call_short:"📞 (929) 241-5927",btn_order:"Order",hero_title:"Fresh 🔥 Doner & Shawarma — fast, tasty, halal.",hero_desc:"Pickup (Clover) is cheaper; delivery via DoorDash / Uber Eats. Tap a button below.",pickup_clover:"Pickup (Clover)",delivery_dd:"Delivery (DoorDash)",delivery_ue:"Delivery (Uber Eats)",pickup_note:"Pickup is usually cheaper. Delivery available in your area via partners."},uz:{announce:"💥 <b>Grand Opening:</b> Eng arzon <span class=\"font-semibold\">Clover</span> pickup. Yetkazib berish <span class=\"font-semibold\">DoorDash</span> yoki <span class=\"font-semibold\">Uber Eats</span> orqali.",brand_name:"Uz Doner",brand_tag:"Brooklyn, NY • Halol",nav_menu:"Menyu",nav_order:"Buyurtma",nav_hours:"Ish vaqti & Manzil",call_short:"📞 (929) 241-5927",btn_order:"Buyurtma",hero_title:"Fresh 🔥 Doner & Shawarma — tez, mazali, halol.",hero_desc:"Pickup (Clover) arzonroq; yetkazib berish DoorDash / Uber Eats orqali. Pastdagi tugmani bosing.",pickup_clover:"Pickup (Clover)",delivery_dd:"Yetkazish (DoorDash)",delivery_ue:"Yetkazish (Uber Eats)",pickup_note:"Pickup odatda arzonroq. Yetkazib berish hamkorlar orqali hududingizda mavjud."},ru:{announce:"💥 <b>Grand Opening:</b> Самый выгодный самовывоз в <span class=\"font-semibold\">Clover</span>. Доставка через <span class=\"font-semibold\">DoorDash</span> или <span class=\"font-semibold\">Uber Eats</span>.",brand_name:"Uz Doner",brand_tag:"Бруклин, Нью-Йорк • Халяль",nav_menu:"Меню",nav_order:"Заказ",nav_hours:"Часы и Адрес",call_short:"📞 (929) 241-5927",btn_order:"Заказать",hero_title:"Fresh 🔥 Донер и Шаурма — быстро, вкусно, халяль.",hero_desc:"Самовывоз (Clover) дешевле; доставка через DoorDash / Uber Eats. Нажмите кнопку ниже.",pickup_clover:"Самовывоз (Clover)",delivery_dd:"Доставка (DoorDash)",delivery_ue:"Доставка (Uber Eats)",pickup_note:"Самовывоз обычно дешевле. Доставка доступна через партнеров в вашем районе."}};
 
     function applyLang(lang){
-      const dict = translations[lang] || translations.en;
-      document.documentElement.setAttribute('lang', lang);
+      const dict=translations[lang]||translations.en;
+      document.documentElement.setAttribute('lang',lang);
       document.querySelectorAll('[data-i18n]').forEach(el=>{
-        const key = el.getAttribute('data-i18n');
-        const html = dict[key];
-        if(html!==undefined){ el.innerHTML = html; }
+        const key=el.getAttribute('data-i18n'); const html=dict[key];
+        if(html!==undefined){ el.innerHTML=html; }
       });
-      document.querySelectorAll('.lang-btn').forEach(btn=>{ btn.setAttribute('aria-pressed', String(btn.dataset.lang===lang)); });
-      localStorage.setItem('lang', lang);
+      document.querySelectorAll('.lang-btn').forEach(btn=>btn.setAttribute('aria-pressed',String(btn.dataset.lang===lang)));
+      localStorage.setItem('lang',lang);
     }
-
-    document.addEventListener('click', (e)=>{ const btn = e.target.closest('.lang-btn'); if(!btn) return; applyLang(btn.dataset.lang); });
-    const saved = localStorage.getItem('lang'); const browser = (navigator.language||'en').slice(0,2); const initial = saved || (['uz','ru','en'].includes(browser)? browser : 'en'); applyLang(initial);
-
-    document.getElementById('year').textContent = new Date().getFullYear();
+    document.addEventListener('click',e=>{const btn=e.target.closest('.lang-btn'); if(!btn) return; applyLang(btn.dataset.lang);});
+    const saved=localStorage.getItem('lang'); const browser=(navigator.language||'en').slice(0,2);
+    const initial=saved||(['uz','ru','en'].includes(browser)?browser:'en'); applyLang(initial);
   </script>
 </body>
 </html>
