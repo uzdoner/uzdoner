@@ -27,7 +27,7 @@
     .payrow{display:grid;grid-template-columns:1fr;gap:10px}
     .box{border:1px solid rgba(0,0,0,.12);border-radius:10px;padding:10px 12px;background:#fff}
   </style>
-  <!-- Clover SDK (PRODUCTION!) -->
+  <!-- Clover SDK (PRODUCTION) -->
   <script src="https://checkout.clover.com/sdk.js"></script>
 </head>
 <body>
@@ -37,7 +37,7 @@
         <h1>Complete your payment securely 🍔</h1>
         <p class="muted">Cards are processed by Clover over a PCI-compliant connection.</p>
 
-        <!-- Customer -->
+        <!-- Customer Info -->
         <div class="row">
           <div>
             <label>First name</label>
@@ -59,7 +59,7 @@
           </div>
         </div>
 
-        <!-- Card fields (Clover Elements) -->
+        <!-- Card fields -->
         <label style="margin-top:14px">Card details</label>
         <div class="payrow">
           <div id="clover-card-number" class="box"></div>
@@ -83,17 +83,16 @@
       </div>
     </div>
 
-    <p class="muted" style="margin:16px">Tip: bu sahifani **/checkout.html** sifatida GitHub Pages’da joylang. Worker backend URL’i va Clover public token to‘g‘ri bo‘lishi shart.</p>
+    <p class="muted" style="margin:16px">Tip: bu sahifani **checkout.html** sifatida GitHub Pages’da joylang. Worker backend URL’i va Clover public token to‘g‘ri bo‘lishi shart.</p>
   </div>
 
 <script>
-/* ========= CONFIGURATION ========= */
-const CLOVER_PUBLISHABLE_KEY = 'abc5e72c9169c34cb722402a448c51c9'; // siz bergan public token
-const BACKEND_BASE = 'https://uzdoner-pay.uzdonerweb.workers.dev'; // Worker URL (orqadagi server)
-/* ================================= */
+/* ====== CONFIGURATION ====== */
+const CLOVER_PUBLISHABLE_KEY = 'abc5e72c9169c34cb722402a448c51c9';
+const BACKEND_BASE = 'https://uzdoner-pay.uzdonerweb.workers.dev';
+/* ============================ */
 
-/* Example: total summani o‘zingiz belgilaysiz */
-const TAX_RATE = 0.08875; // NYC misol
+const TAX_RATE = 0.08875;
 function money(n){ return `$${n.toFixed(2)}`; }
 function getCartTotalCents(){
   let cart = [];
@@ -101,7 +100,7 @@ function getCartTotalCents(){
   const subtotal = cart.reduce((s,it)=> s + it.price*it.qty, 0);
   const tax = subtotal * TAX_RATE;
   const total = subtotal + tax;
-  return Math.round(total * 100); // sentlarda
+  return Math.round(total * 100);
 }
 
 const els = {
@@ -116,14 +115,17 @@ const els = {
 };
 
 let clover, elements, cn, exp, cvv, postal;
+
 function mountClover(){
   try{
     clover = new Clover(CLOVER_PUBLISHABLE_KEY);
     elements = clover.elements();
-    cn = elements.create('cardNumber');     cn.mount('#clover-card-number');
-    exp = elements.create('cardDate');      exp.mount('#clover-card-date');
-    cvv = elements.create('cardCvv');       cvv.mount('#clover-card-cvv');
-    postal = elements.create('postalCode'); postal.mount('#clover-card-postalCode');
+
+    // Clover production element names (UPPERCASE)
+    cn     = elements.create('CARD_NUMBER');      cn.mount('#clover-card-number');
+    exp    = elements.create('CARD_DATE');        exp.mount('#clover-card-date');
+    cvv    = elements.create('CARD_CVV');         cvv.mount('#clover-card-cvv');
+    postal = elements.create('CARD_POSTAL_CODE'); postal.mount('#clover-card-postalCode');
   }catch(e){
     showErr('Clover SDK yuklanmadi: ' + (e.message||e));
   }
@@ -140,12 +142,10 @@ async function charge(){
 
   els.payNow.disabled = true; els.payNow.textContent = 'Processing…';
   try{
-    // 1) Tokenize card
     const { token, errors } = await clover.createToken();
     if(errors){ throw new Error(Object.values(errors).map(e=>e.message||e).join(' ')); }
     if(!token){ throw new Error('Tokenization failed'); }
 
-    // 2) Serverga yuborish
     const res = await fetch(`${BACKEND_BASE}/charge`, {
       method:'POST',
       headers:{'Content-Type':'application/json'},
@@ -166,7 +166,6 @@ async function charge(){
     const data = await res.json().catch(()=> ({}));
     if(!res.ok || !data.ok){ throw new Error(data.error || 'Payment failed'); }
 
-    // 3) Success
     localStorage.removeItem('cart');
     showOk('Payment successful! Order #' + (data.orderId||''));
     setTimeout(()=> window.location.href = '/thank-you', 800);
