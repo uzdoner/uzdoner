@@ -183,7 +183,7 @@
               <button class="add-btn inline-flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold bg-black text-white">➕ Add</button>
               <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill btn-clover">🍀 Clover</a>
               <a href="https://www.doordash.com/store/uz-doner-brooklyn-36084261/79870747/" class="pill btn-dd"><img src="images/doordash.png" alt="" style="width:14px;height:14px"> DoorDash</a>
-              <a href="https://www.uberEats.com/store/uzdoner-472-kings-highway/iL-Rve9uRWO5EhjBLFr7yQ?diningMode=DELIVERY" class="pill btn-ue"><img src="images/uber-eats.png" alt="" style="width:14px;height:14px"> Uber&nbsp;Eats</a>
+              <a href="https://www.ubereats.com/store/uzdoner-472-kings-highway/iL-Rve9uRWO5EhjBLFr7yQ?diningMode=DELIVERY" class="pill btn-ue"><img src="images/uber-eats.png" alt="" style="width:14px;height:14px"> Uber&nbsp;Eats</a>
             </div>
           </div>
         </article>
@@ -198,7 +198,7 @@
               <button class="add-btn inline-flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold bg-black text-white">➕ Add</button>
               <a href="https://www.clover.com/online-ordering/uz-doner-inc-brooklyn" class="pill btn-clover">🍀 Clover</a>
               <a href="https://www.doordash.com/store/uz-doner-brooklyn-36084261/79870747/" class="pill btn-dd"><img src="images/doordash.png" alt="" style="width:14px;height:14px"> DoorDash</a>
-              <a href="https://www.uberEats.com/store/uzdoner-472-kings-highway/iL-Rve9uRWO5EhjBLFr7yQ?diningMode=DELIVERY" class="pill btn-ue"><img src="images/uber-eats.png" alt="" style="width:14px;height:14px"> Uber&nbsp;Eats</a>
+              <a href="https://www.ubereats.com/store/uzdoner-472-kings-highway/iL-Rve9uRWO5EhjBLFr7yQ?diningMode=DELIVERY" class="pill btn-ue"><img src="images/uber-eats.png" alt="" style="width:14px;height:14px"> Uber&nbsp;Eats</a>
             </div>
           </div>
         </article>
@@ -496,7 +496,7 @@
     </div>
   </aside>
 
-  <!-- ====== I18N + SMALL JS ====== -->
+  <!-- ====== I18N + CART JS ====== -->
   <script>
     /* ---------------- I18N ---------------- */
     const translations = {
@@ -544,4 +544,165 @@
     }
 
     document.addEventListener('click', (e)=>{
-      const btn = e.target.closest('.lang-btn'); if(!btn) retur
+      const btn = e.target.closest('.lang-btn');
+      if(btn){         const lang = btn.dataset.lang;
+        applyLang(lang);
+      }
+
+      // Add to cart (delegation)
+      const addBtn = e.target.closest('.add-btn');
+      if(addBtn){
+        const card = addBtn.closest('[data-id][data-name][data-price]');
+        if(card){
+          addToCart({
+            id: card.getAttribute('data-id'),
+            name: card.getAttribute('data-name'),
+            price: parseFloat(card.getAttribute('data-price')),
+          });
+          openCartDrawer();
+        }
+      }
+
+      // Cart item controls (+ / − / remove)
+      const inc = e.target.closest('[data-action="inc"]');
+      const dec = e.target.closest('[data-action="dec"]');
+      const rem = e.target.closest('[data-action="remove"]');
+      if(inc){ changeQty(inc.dataset.id, +1); }
+      if(dec){ changeQty(dec.dataset.id, -1); }
+      if(rem){ removeFromCart(rem.dataset.id); }
+    });
+
+    /* ---------------- CART ---------------- */
+    const TAX_RATE = 0.08875; // NYC example
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+    const els = {
+      overlay: document.getElementById('cartOverlay'),
+      drawer: document.getElementById('cartDrawer'),
+      items: document.getElementById('cartItems'),
+      subtotal: document.getElementById('cartSubtotal'),
+      tax: document.getElementById('cartTax'),
+      total: document.getElementById('cartTotal'),
+      badge: document.getElementById('cartQtyBadge'),
+      openCart: document.getElementById('openCart'),
+      closeCart: document.getElementById('closeCart'),
+      checkout: document.getElementById('checkoutBtn'),
+      year: document.getElementById('year'),
+    };
+
+    function saveCart(){
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    function cartQty(){
+      return cart.reduce((n, it)=> n + it.qty, 0);
+    }
+
+    function addToCart(item){
+      const existing = cart.find(it=> it.id === item.id);
+      if(existing){ existing.qty += 1; }
+      else{ cart.push({...item, qty: 1}); }
+      saveCart();
+      renderCart();
+    }
+
+    function changeQty(id, delta){
+      const it = cart.find(x=> x.id===id);
+      if(!it) return;
+      it.qty += delta;
+      if(it.qty <= 0){
+        const i = cart.findIndex(x=> x.id===id);
+        if(i>-1) cart.splice(i,1);
+      }
+      saveCart();
+      renderCart();
+    }
+
+    function removeFromCart(id){
+      const i = cart.findIndex(x=> x.id===id);
+      if(i>-1){ cart.splice(i,1); }
+      saveCart();
+      renderCart();
+    }
+
+    function money(n){ return `$${n.toFixed(2)}`; }
+
+    function renderCart(){
+      // badge
+      els.badge.textContent = cartQty();
+
+      // items
+      if(cart.length===0){
+        els.items.innerHTML = `<div class="p-4 text-sm text-neutral-600">Your cart is empty.</div>`;
+      }else{
+        els.items.innerHTML = cart.map(it=>`
+          <div class="p-4 flex items-start gap-3">
+            <div class="flex-1">
+              <div class="font-semibold">${it.name}</div>
+              <div class="text-xs text-neutral-500">${money(it.price)} each</div>
+              <div class="mt-2 inline-flex items-center gap-2">
+                <button class="rounded-lg px-2 py-1 ring-1 ring-black/10" data-action="dec" data-id="${it.id}">−</button>
+                <span class="min-w-[1.5rem] text-center font-semibold">${it.qty}</span>
+                <button class="rounded-lg px-2 py-1 ring-1 ring-black/10" data-action="inc" data-id="${it.id}">+</button>
+                <button class="ml-3 text-xs underline text-neutral-600" data-action="remove" data-id="${it.id}">remove</button>
+              </div>
+            </div>
+            <div class="font-semibold">${money(it.price * it.qty)}</div>
+          </div>
+        `).join('');
+      }
+
+      // totals
+      const subtotal = cart.reduce((s,it)=> s + it.price*it.qty, 0);
+      const tax = subtotal * TAX_RATE;
+      const total = subtotal + tax;
+      els.subtotal.textContent = money(subtotal);
+      els.tax.textContent = money(tax);
+      els.total.textContent = money(total);
+    }
+
+    /* ---------------- DRAWER ---------------- */
+    function openCartDrawer(){
+      els.overlay.classList.remove('hidden');
+      els.drawer.classList.remove('hidden');
+      requestAnimationFrame(()=> els.drawer.classList.add('visible'));
+    }
+    function closeCartDrawer(){
+      els.drawer.classList.remove('visible');
+      setTimeout(()=> els.drawer.classList.add('hidden'), 250);
+      els.overlay.classList.add('hidden');
+    }
+
+    els.openCart.addEventListener('click', openCartDrawer);
+    els.closeCart.addEventListener('click', closeCartDrawer);
+    els.overlay.addEventListener('click', closeCartDrawer);
+
+    // Checkout: send to Clover (pickup)
+    els.checkout.addEventListener('click', ()=>{
+      if(cart.length===0){
+        openCartDrawer();
+        return;
+      }
+      // Optional: send cart to your backend before redirect.
+      window.location.href = 'https://www.clover.com/online-ordering/uz-doner-inc-brooklyn';
+    });
+
+    /* ---------------- INIT ---------------- */
+    document.addEventListener('DOMContentLoaded', ()=>{
+      // Year in footer
+      els.year.textContent = new Date().getFullYear();
+
+      // Language from storage (default en)
+      applyLang(localStorage.getItem('lang') || 'en');
+
+      // Render any saved cart
+      renderCart();
+
+      // Add keyboard ESC to close drawer
+      document.addEventListener('keydown', (e)=>{
+        if(e.key === 'Escape') closeCartDrawer();
+      });
+    });
+  </script>
+</body>
+</html>
