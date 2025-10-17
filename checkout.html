@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UzDoner | Checkout</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #fafafa;
+      text-align: center;
+      margin-top: 100px;
+    }
+    h2 {
+      color: #333;
+    }
+    #apple-pay-button {
+      -webkit-appearance: -apple-pay-button;
+      -apple-pay-button-type: buy;
+      height: 44px;
+      width: 250px;
+      border-radius: 8px;
+      display: inline-block;
+      margin-top: 20px;
+    }
+    #apple-pay-button.hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h2>Complete your payment securely 🍔</h2>
+  <p>Click below to pay with Apple Pay</p>
+  <button id="apple-pay-button"></button>
+
+  <script>
+    const CLOVER_PUBLIC_TOKEN = "abc5c72c9169c34cb722402a448c51c9"; // your Clover Public key
+    const CLOVER_MERCHANT_ID = "496171605884"; // your Merchant ID
+    const CLOVER_BACKEND_URL = "https://sandbox.dev.clover.com"; // test environment
+
+    document.addEventListener("DOMContentLoaded", () => {
+      if (window.ApplePaySession && ApplePaySession.canMakePayments()) {
+        document.getElementById("apple-pay-button").addEventListener("click", beginApplePay);
+      } else {
+        document.getElementById("apple-pay-button").classList.add("hidden");
+        alert("Apple Pay is not available on this device/browser.");
+      }
+    });
+
+    function beginApplePay() {
+      const request = {
+        countryCode: "US",
+        currencyCode: "USD",
+        supportedNetworks: ["visa", "masterCard", "amex"],
+        merchantCapabilities: ["supports3DS"],
+        total: { label: "UzDoner", amount: "12.00" } // change dynamically if needed
+      };
+
+      const session = new ApplePaySession(3, request);
+
+      // STEP 1: Validate merchant
+      session.onvalidatemerchant = (event) => {
+        fetch(`${CLOVER_BACKEND_URL}/v1/applepay/validate-merchant`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            validationURL: event.validationURL,
+            merchantIdentifier: CLOVER_MERCHANT_ID,
+            displayName: "UzDoner",
+            initiative: "web",
+            initiativeContext: "uzdoner.my"
+          })
+        })
+        .then(res => res.json())
+        .then(data => session.completeMerchantValidation(data))
+        .catch(err => {
+          console.error("Merchant validation failed:", err);
+          alert("Merchant validation failed. Check Clover API setup.");
+          session.abort();
+        });
+      };
+
+      // STEP 2: Authorize payment
+      session.onpaymentauthorized = (event) => {
+        console.log("Apple Pay token:", event.payment.token);
+
+        // Clover API tokenization (sandbox)
+        fetch(`${CLOVER_BACKEND_URL}/v3/merchants/${CLOVER_MERCHANT_ID}/payments`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer 71306446-5550-2a6b-6c2b-9581757f7528" // REST API Token (private)
+          },
+          body: JSON.stringify({
+            amount: 1200, // 12.00 USD = 1200 cents
+            currency: "USD",
+            externalReferenceId: `order-${Date.now()}`,
+            source: {
+              token: event.payment.token.paymentData || "applepay"
+            }
+          })
+        })
+        .then(res => res.json())
+        .then(data => {
+          console.log("Payment success:", data);
+          session.completePayment(ApplePaySession.STATUS_SUCCESS);
+          alert("✅ Payment successful! Thank you for your order.");
+        })
+        .catch(err => {
+          console.error("Payment failed:", err);
+          session.completePayment(ApplePaySession.STATUS_FAILURE);
+          alert("❌ Payment failed. Please try again.");
+        });
+      };
+
+      session.begin();
+    }
+  </script>
+</body>
+</html>
