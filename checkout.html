@@ -44,7 +44,7 @@
   <div class="wrap">
     <div class="card">
       <div class="p16">
-        <h1>Complete your payment securely 🍔</h1>
+        <h1>Complete your payment securely 🔒</h1>
         <p class="muted">Cards are processed by Clover over a PCI-compliant connection.</p>
 
         <!-- Customer info -->
@@ -76,7 +76,7 @@
 
           <div class="row-3">
             <div>
-              <label>MM/YY</label>
+              <label>MM/YYYY</label>
               <div id="clover-card-date" class="box"></div>
             </div>
             <div>
@@ -107,7 +107,7 @@ const CLOVER_PUBLISHABLE_KEY = 'abc5e72c9169c34cb722402a448c51c9'; // sizning pu
 const BACKEND_BASE = 'https://uzdoner-pay.uzdonerweb.workers.dev';   // Worker backend URL
 /* ============================ */
 
-const TAX_RATE = 0.08875;
+const TAX_RATE = 8.875;
 function money(n){ return `$${n.toFixed(2)}`; }
 function getCartTotalCents(){
   let cart = [];
@@ -155,7 +155,7 @@ function showOk(t){ els.ok.textContent = t; els.ok.style.display = 'block'; }
 async function charge(){
   clearErr(); els.ok.style.display='none';
   const amount = getCartTotalCents();
-  if(!amount || amount < 50){ showErr('Noto‘g‘ri summa.'); return; }
+  if(!amount || amount < 50){ showErr('Wrong Amount.'); return; }
 
   els.payNow.disabled = true; els.payNow.textContent = 'Processing…';
   try{
