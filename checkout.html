@@ -51,19 +51,19 @@
         <div class="form two">
           <div>
             <label for="firstName">First name</label>
-            <input id="firstName" type="text" placeholder="Sherali" required>
+            <input id="firstName" autocomplete="given-name" type="text" placeholder="Sherali" required>
           </div>
           <div>
             <label for="lastName">Last name</label>
-            <input id="lastName" type="text" placeholder="Islomov" required>
+            <input id="lastName" autocomplete="family-name" type="text" placeholder="Islomov" required>
           </div>
           <div>
             <label for="email">Email</label>
-            <input id="email" type="email" placeholder="you@example.com" required>
+            <input id="email" autocomplete="email" type="email" placeholder="you@example.com" required>
           </div>
           <div>
             <label for="phone">Phone</label>
-            <input id="phone" type="tel" placeholder="(929) 000-0000">
+            <input id="phone" autocomplete="tel" inputmode="tel" type="tel" placeholder="(929) 000-0000">
           </div>
         </div>
 
@@ -103,19 +103,20 @@
 
 <script>
 /* ====== CONFIGURATION ====== */
-const CLOVER_PUBLISHABLE_KEY = 'abc5e72c9169c34cb722402a448c51c9'; // sizning public token’ingiz
+const CLOVER_PUBLISHABLE_KEY = 'abc5e72c9169c34cb722402a448c51c9'; // public token (iFrame)
 const BACKEND_BASE = 'https://uzdoner-pay.uzdonerweb.workers.dev';   // Worker backend URL
 /* ============================ */
 
-const TAX_RATE = 8.875;
+/* Cart total: localStorage('cart') = [{price:13.99, qty:2}, ...] */
+const TAX_RATE = 0.08875; // 8.875% – NYC
 function money(n){ return `$${n.toFixed(2)}`; }
 function getCartTotalCents(){
   let cart = [];
   try{ cart = JSON.parse(localStorage.getItem('cart') || '[]'); }catch(e){}
-  const subtotal = cart.reduce((s,it)=> s + it.price*it.qty, 0);
+  const subtotal = cart.reduce((s,it)=> s + (Number(it.price)||0) * (Number(it.qty)||0), 0);
   const tax = subtotal * TAX_RATE;
   const total = subtotal + tax;
-  return Math.round(total * 100);
+  return Math.round(total * 100); // cents
 }
 
 const els = {
@@ -136,15 +137,17 @@ function mountClover(){
     clover = new Clover(CLOVER_PUBLISHABLE_KEY);
     elements = clover.elements();
 
-    // Compact theme (ixtiyoriy – shrift xajmi va joylashuv)
+    // Compact styling
     const style = { base: { fontSize: '14px', '::placeholder': { color:'#9aa3af' } } };
 
+    // IMPORTANT: API element names must match worker version
     cn     = elements.create('CARD_NUMBER',      { style }); cn.mount('#clover-card-number');
     exp    = elements.create('CARD_DATE',        { style }); exp.mount('#clover-card-date');
     cvv    = elements.create('CARD_CVV',         { style }); cvv.mount('#clover-card-cvv');
     postal = elements.create('CARD_POSTAL_CODE', { style }); postal.mount('#clover-card-postalCode');
   }catch(e){
     showErr('Clover SDK yuklanmadi: ' + (e.message||e));
+    els.payNow.disabled = true;
   }
 }
 
@@ -155,7 +158,7 @@ function showOk(t){ els.ok.textContent = t; els.ok.style.display = 'block'; }
 async function charge(){
   clearErr(); els.ok.style.display='none';
   const amount = getCartTotalCents();
-  if(!amount || amount < 50){ showErr('Wrong Amount.'); return; }
+  if(!amount || amount < 50){ showErr('Amount is invalid.'); return; }
 
   els.payNow.disabled = true; els.payNow.textContent = 'Processing…';
   try{
@@ -170,7 +173,7 @@ async function charge(){
         token,
         amount,
         currency: 'USD',
-        description: 'Online order (UzDoner website)',
+        description: 'Online order (Uz Doner website)',
         customer: {
           firstName: els.first.value,
           lastName:  els.last.value,
@@ -197,6 +200,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
   els.total.textContent = money(getCartTotalCents()/100);
   mountClover();
   els.payNow.addEventListener('click', charge);
+
+  // Enter bosilganda form submit bo'lib ketmasin
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter') e.preventDefault();
+  });
 });
 </script>
 </body>
