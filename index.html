@@ -677,32 +677,44 @@
     els.closeCart.addEventListener('click', closeCartDrawer);
     els.overlay.addEventListener('click', closeCartDrawer);
 
-    // Checkout: send to Clover (pickup)
-    els.checkout.addEventListener('click', ()=>{
-      if(cart.length===0){
-        openCartDrawer();
-        return;
-      }
-      // Optional: send cart to your backend before redirect.
-      window.location.href = 'https://www.clover.com/online-ordering/uz-doner-inc-brooklyn';
-    });
+    <script>
+  // ... (eski kodingiz o'zgarmaydi)
 
-    /* ---------------- INIT ---------------- */
-    document.addEventListener('DOMContentLoaded', ()=>{
-      // Year in footer
-      els.year.textContent = new Date().getFullYear();
+  // -------- Checkout: go to your checkout.html --------
+  function navigateToCheckout() {
+    // hisob-kitob
+    const subtotal = cart.reduce((s, it) => s + it.price * it.qty, 0);
+    const tax = subtotal * TAX_RATE;
+    const total = subtotal + tax;
 
-      // Language from storage (default en)
-      applyLang(localStorage.getItem('lang') || 'en');
+    // checkout sahifasiga kerak bo'ladigan meta ma'lumot
+    const meta = {
+      subtotal, tax, total,
+      currency: 'USD',
+      ts: Date.now()
+    };
+    localStorage.setItem('checkoutMeta', JSON.stringify(meta));
 
-      // Render any saved cart
-      renderCart();
+    // savatchani ham oldin saqlab qo'yamiz (checkout.html aynan shundan o'qiydi)
+    localStorage.setItem('cart', JSON.stringify(cart));
 
-      // Add keyboard ESC to close drawer
-      document.addEventListener('keydown', (e)=>{
-        if(e.key === 'Escape') closeCartDrawer();
-      });
-    });
-  </script>
+    // GitHub Pages ildizida bo'lsangiz – '/checkout.html'
+    // Subfolder/repo sahifada bo'lsangiz – 'checkout.html' (relative) ni ishlating.
+    const target = '/checkout.html'; // kerak bo'lsa 'checkout.html' deb o'zgartiring
+    window.location.href = target;
+  }
+
+  els.checkout.addEventListener('click', () => {
+    if (cart.length === 0) {
+      openCartDrawer();
+      return;
+    }
+    navigateToCheckout();
+  });
+
+  // ... (qolgan kodingiz)
+</script>
+
 </body>
 </html>
+
