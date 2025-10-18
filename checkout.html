@@ -21,15 +21,6 @@
     input[type="text"], input[type="email"], input[type="tel"] {
       width:100%; height:44px; padding:10px 12px; border:1px solid rgba(0,0,0,.14); border-radius:12px; font-size:14px; background:#fff;
     }
-    /* Clover Elements containers — compact and responsive */
-    .box {
-      width:100%; height:44px; border:1px solid rgba(0,0,0,.14);
-      border-radius:12px; background:#fff; padding:0 12px; display:flex; align-items:center;
-    }
-    /* Make embedded iframes fill the input height neatly */
-    .box iframe { width:100% !important; height:100% !important; }
-    .row-3 { display:grid; grid-template-columns: 1fr 1fr 1fr; gap:12px; }
-    @media (max-width: 480px) { .row-3 { grid-template-columns: 1fr 1fr; } .row-3 .full { grid-column: 1 / -1; } }
     .bar { display:flex; justify-content:space-between; align-items:center; padding:14px 16px; border-top:1px solid rgba(0,0,0,.06); background:#fafafa; }
     .total { font-size:18px; font-weight:800; }
     .btn { display:inline-flex; align-items:center; justify-content:center; padding:12px 18px; border-radius:12px; border:0; background:#111; color:#fff; font-weight:800; cursor:pointer; }
@@ -37,56 +28,31 @@
     .err { color:#b91c1c; font-size:13px; margin-top:8px; display:none; }
     .ok  { color:#065f46; font-size:13px; margin-top:8px; display:none; }
   </style>
-  <!-- Clover SDK (PRODUCTION) -->
-  <script src="https://checkout.clover.com/sdk.js"></script>
 </head>
 <body>
   <div class="wrap">
     <div class="card">
       <div class="p16">
         <h1>Complete your payment securely 🔒</h1>
-        <p class="muted">Cards are processed by Clover over a PCI-compliant connection.</p>
+        <p class="muted">Cards are processed by Clover on a PCI-compliant hosted page.</p>
 
-        <!-- Customer info -->
+        <!-- Customer info (ixtiyoriy, biz faqat URLga jo‘natamiz yoki orderga saqlamoqchi bo‘lsangiz Worker’ga yuborasiz) -->
         <div class="form two">
           <div>
             <label for="firstName">First name</label>
-            <input id="firstName" autocomplete="given-name" type="text" placeholder="Sherali" required>
+            <input id="firstName" type="text" placeholder="Sherali">
           </div>
           <div>
             <label for="lastName">Last name</label>
-            <input id="lastName" autocomplete="family-name" type="text" placeholder="Islomov" required>
+            <input id="lastName" type="text" placeholder="Islomov">
           </div>
           <div>
             <label for="email">Email</label>
-            <input id="email" autocomplete="email" type="email" placeholder="you@example.com" required>
+            <input id="email" type="email" placeholder="you@example.com">
           </div>
           <div>
             <label for="phone">Phone</label>
-            <input id="phone" autocomplete="tel" inputmode="tel" type="tel" placeholder="(929) 000-0000">
-          </div>
-        </div>
-
-        <!-- Card fields -->
-        <div class="form" style="margin-top:14px">
-          <div>
-            <label>Card Number</label>
-            <div id="clover-card-number" class="box"></div>
-          </div>
-
-          <div class="row-3">
-            <div>
-              <label>MM/YYYY</label>
-              <div id="clover-card-date" class="box"></div>
-            </div>
-            <div>
-              <label>CVV</label>
-              <div id="clover-card-cvv" class="box"></div>
-            </div>
-            <div class="full">
-              <label>Zip</label>
-              <div id="clover-card-postalCode" class="box"></div>
-            </div>
+            <input id="phone" type="tel" placeholder="(929) 000-0000">
           </div>
         </div>
 
@@ -96,32 +62,40 @@
 
       <div class="bar">
         <div><span class="muted">Order total:</span> <span class="total" id="total">$0.00</span></div>
-        <button id="payNow" class="btn">Pay now</button>
+        <button id="payHosted" class="btn">Pay on Clover</button>
       </div>
     </div>
   </div>
 
 <script>
-/* ====== CONFIGURATION ====== */
-const CLOVER_PUBLISHABLE_KEY = 'abc5e72c9169c34cb722402a448c51c9'; // public token (iFrame)
-const BACKEND_BASE = 'https://uzdoner-pay.uzdonerweb.workers.dev';   // Worker backend URL
-/* ============================ */
+/* ====== CONFIG ====== */
+/** Siz yaratgan Clover Hosted link (pay-widgets) — siz bergansiz */
+const HOSTED_URL = "https://www.clover.com/pay-widgets/ba534d03-764f-4a58-bf17-c4e8d1490fbb";
 
-/* Cart total: localStorage('cart') = [{price:13.99, qty:2}, ...] */
-const TAX_RATE = 0.08875; // 8.875% – NYC
+/** Agar Worker orqali redirect qilmoqchi bo‘lsangiz, backend bazani kiriting.
+    Aks holda WORKER_BASE ni bo‘sh qoldiring va to‘g‘ridan-to‘g‘ri HOSTED_URL ga redirect qilamiz. */
+const WORKER_BASE = ""; // masalan: 'https://uzdoner-pay.uzdonerweb.workers.dev'
+
+/** Soliq hisoblash (cart ichida localStorage bilan xuddi oldingidek) */
+const TAX_RATE = 0.08875; // 8.875% (NYC misol)
+
 function money(n){ return `$${n.toFixed(2)}`; }
-function getCartTotalCents(){
-  let cart = [];
-  try{ cart = JSON.parse(localStorage.getItem('cart') || '[]'); }catch(e){}
+
+function getCart(){
+  try{ return JSON.parse(localStorage.getItem('cart') || '[]'); }catch(e){ return []; }
+}
+
+function getTotalCents(){
+  const cart = getCart();
   const subtotal = cart.reduce((s,it)=> s + (Number(it.price)||0) * (Number(it.qty)||0), 0);
   const tax = subtotal * TAX_RATE;
   const total = subtotal + tax;
-  return Math.round(total * 100); // cents
+  return Math.round(total * 100);
 }
 
 const els = {
   total: document.getElementById('total'),
-  payNow: document.getElementById('payNow'),
+  btn: document.getElementById('payHosted'),
   err: document.getElementById('msgErr'),
   ok:  document.getElementById('msgOk'),
   first: document.getElementById('firstName'),
@@ -130,81 +104,71 @@ const els = {
   phone: document.getElementById('phone'),
 };
 
-let clover, elements, cn, exp, cvv, postal;
-
-function mountClover(){
-  try{
-    clover = new Clover(CLOVER_PUBLISHABLE_KEY);
-    elements = clover.elements();
-
-    // Compact styling
-    const style = { base: { fontSize: '14px', '::placeholder': { color:'#9aa3af' } } };
-
-    // IMPORTANT: API element names must match worker version
-    cn     = elements.create('CARD_NUMBER',      { style }); cn.mount('#clover-card-number');
-    exp    = elements.create('CARD_DATE',        { style }); exp.mount('#clover-card-date');
-    cvv    = elements.create('CARD_CVV',         { style }); cvv.mount('#clover-card-cvv');
-    postal = elements.create('CARD_POSTAL_CODE', { style }); postal.mount('#clover-card-postalCode');
-  }catch(e){
-    showErr('Clover SDK yuklanmadi: ' + (e.message||e));
-    els.payNow.disabled = true;
-  }
-}
-
 function showErr(t){ els.err.textContent = t; els.err.style.display = 'block'; }
 function clearErr(){ els.err.textContent = ''; els.err.style.display = 'none'; }
 function showOk(t){ els.ok.textContent = t; els.ok.style.display = 'block'; }
 
-async function charge(){
+async function goHosted(){
   clearErr(); els.ok.style.display='none';
-  const amount = getCartTotalCents();
-  if(!amount || amount < 50){ showErr('Amount is invalid.'); return; }
 
-  els.payNow.disabled = true; els.payNow.textContent = 'Processing…';
-  try{
-    const { token, errors } = await clover.createToken();
-    if(errors){ throw new Error(Object.values(errors).map(e=>e.message||e).join(' ')); }
-    if(!token){ throw new Error('Tokenization failed'); }
+  const amountCents = getTotalCents();
+  if(!amountCents || amountCents < 50){ showErr('Total amount is invalid.'); return; }
 
-    const res = await fetch(`${BACKEND_BASE}/charge`, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        token,
-        amount,
-        currency: 'USD',
-        description: 'Online order (Uz Doner website)',
-        customer: {
-          firstName: els.first.value,
-          lastName:  els.last.value,
-          email:     els.email.value,
-          phone:     els.phone.value
-        },
-        cart: (JSON.parse(localStorage.getItem('cart')||'[]'))
-      })
-    });
-    const data = await res.json().catch(()=> ({}));
-    if(!res.ok || !data.ok){ throw new Error(data.error || 'Payment failed'); }
+  // Mijoz ma’lumotlari (ixtiyoriy) – agar Worker’ga yubormoqchi bo‘lsangiz
+  const customer = {
+    firstName: els.first.value || '',
+    lastName:  els.last.value  || '',
+    email:     els.email.value || '',
+    phone:     els.phone.value || ''
+  };
 
-    localStorage.removeItem('cart');
-    showOk('Payment successful! Order #' + (data.orderId||''));
-    setTimeout(()=> window.location.href = '/thank-you', 800);
-  }catch(err){
-    showErr(err.message || 'Payment error');
-  }finally{
-    els.payNow.disabled = false; els.payNow.textContent = 'Pay now';
+  // 1) WORKER orqali redirect (ixtiyoriy)
+  if (WORKER_BASE) {
+    els.btn.disabled = true; els.btn.textContent = 'Redirecting…';
+    try{
+      const r = await fetch(`${WORKER_BASE}/hosted/create`, {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({
+          amount: amountCents,
+          currency: 'USD',
+          cart: getCart(),
+          customer
+        })
+      });
+      const data = await r.json().catch(()=> ({}));
+      if(!r.ok || !data.ok || !data.url){ throw new Error(data.error || 'Failed to get hosted URL'); }
+      window.location.href = data.url;
+    }catch(e){
+      els.btn.disabled = false; els.btn.textContent = 'Pay on Clover';
+      showErr(e.message || 'Redirect error');
+    }
+    return;
   }
+
+  // 2) To‘g‘ridan-to‘g‘ri Clover hosted linkiga redirect
+  // Ba’zi widgetlar ?amount=12.34 yoki ?amountInCents=1234’ni qabul qiladi.
+  // Biz ikkisini ham qo‘shamiz — qaysi biri ishlasa, o‘sha oladi; ishlamasa, sahifada mijoz summa kiritadi.
+  const amountParam = (amountCents/100).toFixed(2); // 12.34
+  const url = new URL(HOSTED_URL);
+  url.searchParams.set('amount', amountParam);
+  url.searchParams.set('amountInCents', String(amountCents));
+
+  // Shuningdek mijoz info’ni ham qo‘shib yuboramiz (agar vidjet o‘qisa):
+  if(customer.firstName) url.searchParams.set('firstName', customer.firstName);
+  if(customer.lastName)  url.searchParams.set('lastName',  customer.lastName);
+  if(customer.email)     url.searchParams.set('email',     customer.email);
+  if(customer.phone)     url.searchParams.set('phone',     customer.phone);
+
+  // Cartni keyingi sahifalar uchun kerak bo‘lsa saqlab qo‘ying
+  sessionStorage.setItem('last_checkout_total_cents', String(amountCents));
+
+  window.location.href = url.toString();
 }
 
 document.addEventListener('DOMContentLoaded', ()=>{
-  els.total.textContent = money(getCartTotalCents()/100);
-  mountClover();
-  els.payNow.addEventListener('click', charge);
-
-  // Enter bosilganda form submit bo'lib ketmasin
-  document.addEventListener('keydown', (e)=>{
-    if(e.key === 'Enter') e.preventDefault();
-  });
+  els.total.textContent = money(getTotalCents()/100);
+  els.btn.addEventListener('click', goHosted);
 });
 </script>
 </body>
